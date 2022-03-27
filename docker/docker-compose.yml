@@ -1,0 +1,33 @@
+version: "3.3"
+services:
+  php-apache-phalcon:
+    build: 
+      context: .
+    container_name : "mini_erp"
+    ports:
+      - 80:80
+    volumes:
+      - /data/www/mini_erp:/data/www
+      - /data/log:/data/log
+    tty: true
+  database:
+    image: mariadb:10.6.7
+    container_name: "mini_erp_database"
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: "erp"
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: "mini_erp_phpmyadmin"
+    restart: always
+    ports:
+      - 8888:80
+    environment:
+      - PMA_USER=root
+      - PMA_PASSWORD=erp
+      - PMA_HOST=localhost
+
+networks:
+  default:
+    external:
+      name: mysql_dev_network
