@@ -2,6 +2,7 @@ FROM ubuntu:focal
 
 RUN mkdir /data
 COPY ./script /data/script
+COPY ./vhosts /data/vhosts
 
 RUN apt-get update
 
@@ -17,4 +18,4 @@ RUN /data/script/composer_install.sh
 RUN /data/script/phalcon_install.sh
 
 # configure vhost
-#RUN /data/script/apache_configure.sh
+RUN /data/script/apache_configure.sh
