@@ -3,6 +3,7 @@ FROM ubuntu:focal
 RUN mkdir /data
 COPY ./script /data/script
 COPY ./vhosts /data/vhosts
+COPY ./database /data/database
 
 RUN apt-get update
 

@@ -27,10 +27,9 @@ USE `mini_erp`;
 -- Table structure for table `client`
 --
 
-DROP TABLE IF EXISTS `client`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `client` (
+CREATE TABLE /*!32312 IF NOT EXISTS*/ `client` (
   `id` int(10) unsigned NOT NULL,
   `lastname` varchar(255) NOT NULL,
   `firstname` varchar(255) NOT NULL,
@@ -44,10 +43,9 @@ CREATE TABLE `client` (
 -- Table structure for table `company`
 --
 
-DROP TABLE IF EXISTS `company`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `company` (
+CREATE TABLE /*!32312 IF NOT EXISTS*/ `company` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `immatriculation` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -62,10 +60,9 @@ CREATE TABLE `company` (
 -- Table structure for table `employee`
 --
 
-DROP TABLE IF EXISTS `employee`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `employee` (
+CREATE TABLE /*!32312 IF NOT EXISTS*/ `employee` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `birthday` datetime DEFAULT NULL,
@@ -82,10 +79,9 @@ CREATE TABLE `employee` (
 -- Table structure for table `product`
 --
 
-DROP TABLE IF EXISTS `product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `product` (
+CREATE TABLE /*!32312 IF NOT EXISTS*/ `product` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `reference` varchar(255) NOT NULL,
@@ -107,10 +103,9 @@ CREATE TABLE `product` (
 -- Table structure for table `provider`
 --
 
-DROP TABLE IF EXISTS `provider`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `provider` (
+CREATE TABLE /*!32312 IF NOT EXISTS*/ `provider` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `immatriculation` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -124,10 +119,9 @@ CREATE TABLE `provider` (
 -- Table structure for table `transaction`
 --
 
-DROP TABLE IF EXISTS `transaction`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `transaction` (
+CREATE TABLE /*!32312 IF NOT EXISTS*/ `transaction` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `date` datetime NOT NULL DEFAULT current_timestamp(),
   `reference` varchar(255) NOT NULL,
@@ -155,10 +149,9 @@ CREATE TABLE `transaction` (
 -- Table structure for table `transaction_history`
 --
 
-DROP TABLE IF EXISTS `transaction_history`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `transaction_history` (
+CREATE TABLE /*!32312 IF NOT EXISTS*/ `transaction_history` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `date` datetime NOT NULL DEFAULT current_timestamp(),
   `transaction_reference` varchar(255) NOT NULL,
