@@ -4,6 +4,10 @@ services:
     build: 
       context: .
     container_name : "mini_erp"
+   # command:
+   #   - bash -c "/data/script/start.sh"
+   #   - bash -c "sh /data/database/database_init.sh" /!\ carrefull about dump => actually drop database
+   #   - bash -c "tail -f /dev/null"
     ports:
       - 80:80
     volumes:
@@ -25,9 +29,4 @@ services:
     environment:
       - PMA_USER=root
       - PMA_PASSWORD=erp
-      - PMA_HOST=localhost
-
-networks:
-  default:
-    external:
-      name: mysql_dev_network
+      - PMA_HOST=mini_erp_database
