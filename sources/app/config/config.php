@@ -10,20 +10,19 @@ defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
 return new \Phalcon\Config([
     'database' => [
         'adapter'     => 'Mysql',
-        'host'        => 'localhost',
-        'username'    => 'root',
-        'password'    => '',
-        'dbname'      => 'test',
+        'host'        => 'mini_erp_database',
+        'username'    => 'mini_erp_user',
+        'password'    => 'mini_erp_pass',
+        'dbname'      => 'mini_erp',
         'charset'     => 'utf8',
     ],
     'application' => [
         'appDir'         => APP_PATH . '/',
         'controllersDir' => APP_PATH . '/controllers/',
         'modelsDir'      => APP_PATH . '/models/',
+        'coreDir'        => APP_PATH . '/core/',
         'migrationsDir'  => APP_PATH . '/migrations/',
-        'viewsDir'       => APP_PATH . '/views/',
-        'pluginsDir'     => APP_PATH . '/plugins/',
-        'libraryDir'     => APP_PATH . '/library/',
+       // 'viewsDir'       => APP_PATH . '/views/',
         'cacheDir'       => BASE_PATH . '/cache/',
         'baseUri'        => '/',
     ]
