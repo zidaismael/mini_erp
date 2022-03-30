@@ -144,6 +144,22 @@ CREATE TABLE `rel_transaction_product` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `role`
+--
+
+DROP TABLE IF EXISTS `role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `role` (
+  `id` smallint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `access_type` enum('RW','R') NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `transaction`
 --
 
@@ -194,6 +210,24 @@ CREATE TABLE `transaction_history` (
   UNIQUE KEY `transaction_reference_UNIQUE` (`transaction_reference`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='history of transaction on products';
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `id` smallint(3) unsigned NOT NULL,
+  `login` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role_id` smallint(3) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `login_UNIQUE` (`login`),
+  CONSTRAINT `fk_role_user` FOREIGN KEY (`id`) REFERENCES `role` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -204,4 +238,4 @@ CREATE TABLE `transaction_history` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-30 21:02:40
+-- Dump completed on 2022-03-30 21:43:43
