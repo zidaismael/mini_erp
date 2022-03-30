@@ -43,19 +43,19 @@ class Transaction extends \Phalcon\Mvc\Model
      *
      * @var integer
      */
-    public $quantity;
+    public $product_quantity;
 
     /**
      *
      * @var double
      */
-    public $price;
+    public $product_price;
 
     /**
      *
      * @var double
      */
-    public $tax;
+    public $product_tax;
 
     /**
      * Initialize method for model.

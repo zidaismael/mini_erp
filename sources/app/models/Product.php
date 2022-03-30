@@ -13,13 +13,13 @@ class Product extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $name;
+    public $reference;
 
     /**
      *
      * @var string
      */
-    public $reference;
+    public $name;
 
     /**
      *

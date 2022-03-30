@@ -1,6 +1,6 @@
 <?php
 
-class Employee extends \Phalcon\Mvc\Model
+class TransactionHistory extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -13,43 +13,73 @@ class Employee extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $reference;
+    public $date;
 
     /**
      *
      * @var string
      */
-    public $lastname;
+    public $transaction_reference;
 
     /**
      *
      * @var string
      */
-    public $firstname;
+    public $transaction_type;
 
     /**
      *
      * @var string
      */
-    public $birthday;
+    public $seller_reference;
 
     /**
      *
      * @var string
      */
-    public $country;
+    public $seller_name;
 
     /**
      *
      * @var string
      */
-    public $contract_date;
+    public $buyer_reference;
+
+    /**
+     *
+     * @var string
+     */
+    public $buyer_name;
+
+    /**
+     *
+     * @var string
+     */
+    public $product_reference;
+
+    /**
+     *
+     * @var string
+     */
+    public $product_name;
 
     /**
      *
      * @var integer
      */
-    public $company_id;
+    public $quantity;
+
+    /**
+     *
+     * @var double
+     */
+    public $price;
+
+    /**
+     *
+     * @var double
+     */
+    public $tax;
 
     /**
      * Initialize method for model.
@@ -57,16 +87,14 @@ class Employee extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("mini_erp");
-        $this->setSource("employee");
-        $this->hasMany('id', 'Transaction', 'employee_id', ['alias' => 'Transaction']);
-        $this->belongsTo('company_id', '\Company', 'id', ['alias' => 'Company']);
+        $this->setSource("transaction_history");
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Employee[]|Employee|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return TransactionHistory[]|TransactionHistory|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null): \Phalcon\Mvc\Model\ResultsetInterface
     {
@@ -77,7 +105,7 @@ class Employee extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Employee|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     * @return TransactionHistory|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
      */
     public static function findFirst($parameters = null): ?\Phalcon\Mvc\ModelInterface
     {

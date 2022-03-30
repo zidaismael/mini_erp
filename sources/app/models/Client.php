@@ -13,6 +13,12 @@ class Client extends \Phalcon\Mvc\Model
      *
      * @var string
      */
+    public $reference;
+
+    /**
+     *
+     * @var string
+     */
     public $lastname;
 
     /**

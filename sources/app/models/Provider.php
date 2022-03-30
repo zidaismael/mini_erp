@@ -13,7 +13,7 @@ class Provider extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $immatriculation;
+    public $reference;
 
     /**
      *
