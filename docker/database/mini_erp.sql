@@ -32,11 +32,13 @@ DROP TABLE IF EXISTS `client`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `client` (
   `id` int(10) unsigned NOT NULL,
-  `lastname` varchar(255) NOT NULL,
-  `firstname` varchar(255) NOT NULL,
+  `reference` varchar(100) NOT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `firstname` varchar(50) NOT NULL,
   `address` varchar(255) NOT NULL,
-  `country` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `country` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `reference_UNIQUE` (`reference`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -49,12 +51,12 @@ DROP TABLE IF EXISTS `company`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `company` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `immatriculation` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `reference` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `balance` float NOT NULL DEFAULT 0,
-  `country` varchar(255) NOT NULL,
+  `country` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name_UNIQUE` (`name`)
+  UNIQUE KEY `reference_UNIQUE` (`reference`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -67,12 +69,15 @@ DROP TABLE IF EXISTS `employee`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `employee` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `birthday` datetime DEFAULT NULL,
-  `country` varchar(255) NOT NULL,
-  `contract_date` datetime NOT NULL,
+  `reference` varchar(100) NOT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `firstname` varchar(50) NOT NULL,
+  `birthday` date DEFAULT NULL,
+  `country` varchar(100) NOT NULL,
+  `contract_date` date NOT NULL,
   `company_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `reference_UNIQUE` (`reference`),
   KEY `fk_company_employee_idx` (`company_id`),
   CONSTRAINT `fk_company_employee` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
@@ -87,8 +92,8 @@ DROP TABLE IF EXISTS `product`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `reference` varchar(255) NOT NULL,
+  `reference` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `price` float NOT NULL,
   `tax` float NOT NULL DEFAULT 0,
   `stock` int(4) DEFAULT NULL,
@@ -112,11 +117,12 @@ DROP TABLE IF EXISTS `provider`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `provider` (
   `id` int(10) unsigned NOT NULL,
-  `immatriculation` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `country` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `reference` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `country` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `immatriculation_UNIQUE` (`reference`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -151,10 +157,11 @@ CREATE TABLE `transaction` (
   `type` enum('supply','sell') NOT NULL,
   `employee_id` int(10) unsigned DEFAULT NULL,
   `client_id` int(10) unsigned DEFAULT NULL,
-  `quantity` int(4) unsigned NOT NULL,
-  `price` float NOT NULL,
-  `tax` float NOT NULL,
+  `product_quantity` int(4) unsigned NOT NULL,
+  `product_price` float NOT NULL,
+  `product_tax` float NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `reference_UNIQUE` (`reference`),
   KEY `fk_employee_transaction_idx` (`employee_id`),
   KEY `fk_client_transaction_idx` (`client_id`),
   CONSTRAINT `fk_client_transaction` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -174,16 +181,17 @@ CREATE TABLE `transaction_history` (
   `date` datetime NOT NULL DEFAULT current_timestamp(),
   `transaction_reference` varchar(255) NOT NULL,
   `transaction_type` enum('supply','sell') NOT NULL,
-  `seller_immatriculation` varchar(255) NOT NULL,
+  `seller_reference` varchar(255) NOT NULL,
   `seller_name` varchar(255) NOT NULL,
-  `buyer_immatriculation` varchar(255) NOT NULL,
+  `buyer_reference` varchar(255) NOT NULL,
   `buyer_name` varchar(255) NOT NULL,
   `product_reference` varchar(255) NOT NULL,
-  `product_name` varchar(45) NOT NULL,
+  `product_name` varchar(100) NOT NULL,
   `quantity` int(4) unsigned NOT NULL,
   `price` float NOT NULL,
   `tax` float NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `transaction_reference_UNIQUE` (`transaction_reference`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='history of transaction on products';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -196,4 +204,4 @@ CREATE TABLE `transaction_history` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-30 20:14:15
+-- Dump completed on 2022-03-30 21:02:40
