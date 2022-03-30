@@ -14,14 +14,14 @@ use Phalcon\Url as UrlResolver;
 /**
  * Shared configuration service
  */
-$di->setShared('config', function () {
+$container->setShared('config', function () {
     return include APP_PATH . "/config/config.php";
 });
 
 /**
  * The URL component is used to generate all kind of urls in the application
  */
-$di->setShared('url', function () {
+$container->setShared('url', function () {
     $config = $this->getConfig();
 
     $url = new UrlResolver();
@@ -33,7 +33,7 @@ $di->setShared('url', function () {
 /**
  * Setting up the view component
  */
-$di->setShared('view', function () {
+$container->setShared('view', function () {
     $config = $this->getConfig();
 
     $view = new View();
@@ -63,7 +63,7 @@ $di->setShared('view', function () {
 /**
  * Database connection is created based in the parameters defined in the configuration file
  */
-$di->setShared('db', function () {
+$container->setShared('db', function () {
     $config = $this->getConfig();
 
     $class = 'Phalcon\Db\Adapter\Pdo\\' . $config->database->adapter;
@@ -86,14 +86,14 @@ $di->setShared('db', function () {
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
  */
-$di->setShared('modelsMetadata', function () {
+$container->setShared('modelsMetadata', function () {
     return new MetaDataAdapter();
 });
 
 /**
  * Register the session flash service with the Twitter Bootstrap classes
  */
-$di->set('flash', function () {
+$container->set('flash', function () {
     $escaper = new Escaper();
     $flash = new Flash($escaper);
     $flash->setImplicitFlush(false);
@@ -110,7 +110,7 @@ $di->set('flash', function () {
 /**
  * Start the session the first time some component request the session service
  */
-$di->setShared('session', function () {
+$container->setShared('session', function () {
     $session = new SessionManager();
     $files = new SessionAdapter([
         'savePath' => sys_get_temp_dir(),
