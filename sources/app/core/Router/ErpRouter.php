@@ -38,27 +38,51 @@ class ErpRouter extends Collection
         //single
         'client' => [
             'controller' => 'ClientController',
-            'method' => ['GET','POST','PUT','DELETE']
+            'method' => ['POST','PUT','DELETE']
+        ],
+        'client/{id}' => [
+            'controller' => 'ClientController',
+            'method' => ['GET']
         ],
         'provider' => [
             'controller' => 'ProviderController',
-            'method' => ['GET','POST','PUT','DELETE']
+            'method' => ['POST','PUT','DELETE']
+        ],
+        'provider/{id}' => [
+            'controller' => 'ProviderController',
+            'method' => ['GET']
         ],
         'company' =>  [
             'controller' => 'CompanyController',
-            'method' => ['GET','POST','PUT','DELETE']
+            'method' => ['POST','PUT','DELETE']
+        ],
+        'company/{id}' => [
+            'controller' => 'CompanyController',
+            'method' => ['GET']
         ],
         'employee' =>  [
             'controller' => 'EmployeeController',
-            'method' => ['GET','POST','PUT','DELETE']
+            'method' => ['POST','PUT','DELETE']
+        ],
+        'employee/{id}' => [
+            'controller' => 'EmployeeController',
+            'method' => ['GET']
         ],
         'product' =>  [
             'controller' => 'ProductController',
-            'method' => ['GET','POST','PUT','DELETE']
+            'method' => ['POST','PUT','DELETE']
+        ],
+        'product/{id}' => [
+            'controller' => 'ProductController',
+            'method' => ['GET']
         ],
         'transaction' =>  [
             'controller' => 'TransactionController',
-            'method' => ['GET','POST']
+            'method' => ['POST']
+        ],
+        'transaction/{id}' => [
+            'controller' => 'TransactionController',
+            'method' => ['GET']
         ],
     ];
     
