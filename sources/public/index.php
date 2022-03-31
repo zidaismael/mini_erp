@@ -4,6 +4,7 @@ declare(strict_types = 1);
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Mvc\Micro;
 use Router\ErpRouter;
+use Exception\ApiException;
 
 error_reporting(E_ALL);
 
@@ -21,24 +22,33 @@ try {
     $config = $container->getConfig();
     
     include APP_PATH . '/config/loader.php';
-    
+
     // construct Mini-ERP routes
     $erpRouter = new ErpRouter();
     $erpRouter->init($app);
     
     $app->handle($_SERVER["REQUEST_URI"]);
 } catch (\Exception $e) {
+    //force not set or unsupported code to 500;
+    if(ApiException::validateCode($e->getCode())){
+        $errorCode=$e->getCode();
+    }else{
+        $errorCode=500;
+    }
+    
     //@todo log below as errors
     echo $e->getMessage() . '<br>';
     echo '<pre>' . $e->getTraceAsString() . '</pre>';
     
-    if($e->getCode()>=500){
-        $message="An server technical error occured. Please contact administrators.";
+    if($errorCode===503){
+        $message="Api unavailable due to maintenance.";
+    }else if($errorCode>=500){
+        $message="A server technical error occured. Please contact administrators.";
     }else{
         $message=$e->getMessage();
     }
   
-    $app->response->setStatusCode($e->getCode());
+    $app->response->setStatusCode($errorCode);
     $app->response->setContent($message);
     $app->response->send();
 }
