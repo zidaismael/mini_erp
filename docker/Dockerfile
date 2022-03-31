@@ -13,8 +13,6 @@ RUN apt-get install -y vim apache2 libapache2-mod-php net-tools sudo gettext cur
 
 RUN apt-get install -y php7.4 php7.4-cli php7.4-bcmath php7.4-mbstring php7.4-curl php7.4-json php7.4-intl php7.4-common php7.4-mysqlnd php-psr 
 
-RUN apt-get install -y php7.4-xdebug
-
 RUN /data/script/composer_install.sh
 RUN /data/script/phalcon_install.sh
 
