@@ -33,7 +33,6 @@ class AbstractModel extends \Phalcon\Mvc\Model
     public function create(): bool{
         try{
             return parent::create();
-           // return parent::create();
         }catch(\Exception $e){
             if($e->getCode()=="23000"){
                 throw new DuplicateModelException($e->getMessage(), $e->getCode());
@@ -41,6 +40,24 @@ class AbstractModel extends \Phalcon\Mvc\Model
                 throw $e;
             }
         } 
+    }
+    
+    /**
+     * Update model
+     * @throws DuplicateModelException
+     * @throws Exception
+     * @return bool
+     */
+    public function save(): bool{
+        try{
+            return parent::save();
+        }catch(\Exception $e){
+            if($e->getCode()=="23000"){
+                throw new DuplicateModelException($e->getMessage(), $e->getCode());
+            }else{
+                throw $e;
+            }
+        }
     }
     
 }
