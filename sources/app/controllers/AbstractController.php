@@ -46,7 +46,8 @@ class AbstractController extends \Phalcon\Mvc\Controller
      * Respond to call in JSON
      *
      * @param int $httpCode            
-     * @param mixed $content            
+     * @param mixed $content  
+     * @return \Phalcon\Http\Response     
      */
     protected function output(int $httpCode = 200, $content=null)
     {

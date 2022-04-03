@@ -7,12 +7,18 @@ use Exception\DuplicateModelException;
 class ClientController extends AbstractController
 {
 
+    /**
+     * Get Client list or one client
+     * 
+     * @param int $id
+     *            default null, if null => list else get one
+     * @return \Phalcon\Http\Response
+     */
     public function get($id = null)
     {
         if (is_null($id)) { // no id passed => list
             $result = Client::find();
-        } else { // id passed => get one
-                 
+        } else { // id passed => get one     
             // input parameters validation
             $this->validateData('int', $id, [
                 'message' => "Id must be an integer."
@@ -23,14 +29,23 @@ class ClientController extends AbstractController
         
         $client = $result->toArray();
         
-        if (! empty($client)) {
+        if (! empty($client)) { //result in DB
             $client = is_null($id) ? $client : $client[0];
             return $this->output(200, $client);
-        } else {
-            return $this->output(404);
+        } else { //no result
+            if(is_null($id)){
+                return $this->output(200, []);
+            }else{
+                return $this->output(404);
+            }
         }
     }
 
+    /**
+     * Create Client
+     * 
+     * @return \Phalcon\Http\Response
+     */
     public function post()
     {
         // get body and check mandatory input parameters validation
@@ -42,6 +57,105 @@ class ClientController extends AbstractController
             'country'
         ]);
         
+        $this->validateMandatoryInput($body);
+        
+        $client = new Client();
+        $client->assign($body);
+        
+        try {
+            if ($client->create()) {
+                $result = $client->find($client->id);
+                return $this->output(201, $result->toArray()[0]);
+            } else {
+                // @todo log
+                throw new ApiException(sprintf("An error occured on client creation: %s", json_encode($body)), 503);
+            }
+        } catch (DuplicateModelException $e) {
+            // @todo log
+            throw new ApiException(sprintf("Unique information have been duplicate: %s \nbody: %s", $e->getSubject(), json_encode($body)), 409);
+        } catch (\Exception $e) {
+            // @todo log
+            throw new ApiException(sprintf("An error occured on client creation: %s", json_encode($body)), 503);
+        }
+    }
+
+    /**
+     * Update Client
+     * 
+     * @param int $id            
+     */
+    public function put(int $id)
+    {
+        
+        // get body and check mandatory input parameters validation
+        $body = $this->getBody([
+            'reference',
+            'lastname',
+            'firstname',
+            'address',
+            'country'
+        ]);
+        
+        // input parameters validation
+        $this->validateData('int', $id, [
+            'message' => "Id must be an integer."
+        ]);
+        
+        $this->validateMandatoryInput($body);
+        
+        $client = new Client();
+        $client->id = $id;
+        $client->assign($body);
+        
+        try {
+            if ($client->save()) {
+                $result = $client->find($client->id);
+                return $this->output(200, $result->toArray()[0]);
+            } else {
+                // @todo log
+                
+                throw new ApiException(sprintf("An error occured on client update: %s", json_encode($body)), 503);
+            }
+        } catch (DuplicateModelException $e) {
+            // @todo log
+            throw new ApiException(sprintf("Unique information have been duplicate: %s \nbody: %s", $e->getSubject(), json_encode($body)), 409);
+        } catch (\Exception $e) {
+            // @todo log
+            
+            throw new ApiException(sprintf("An error occured on client creation: %s", json_encode($body)), 503);
+        }
+    }
+
+    /**
+     * Delete Client
+     * 
+     * @param int $id            
+     */
+    public function delete(int $id)
+    {
+        // input parameters validation
+        $this->validateData('int', $id, [
+            'message' => "Id must be an integer."
+        ]);
+        
+        $client = Client::find($id);
+        
+        if (empty($client->toArray())) {
+            return $this->output(404);
+        } else {
+            $client->delete();
+            return $this->output(204);
+        }
+        
+    }
+
+    /**
+     * Validate input
+     * 
+     * @param array $body            
+     */
+    protected function validateMandatoryInput(array $body)
+    {
         // validate input field values
         $this->validateData('string', $body['reference'], [
             'min' => 10,
@@ -80,31 +194,6 @@ class ClientController extends AbstractController
             'includedMinimum' => false,
             'includedMaximum' => false
         ]);
-        
-        $client = new Client();
-        $client->assign($body);
-
-        try{
-            if ($client->create()) {
-                $result = $client->find($client->id);
-                return $this->output(201, $result->toArray()[0]);
-            } else {
-                //@todo log
-                throw new ApiException(sprintf("An error occured on client creation: %s", json_encode($body)), 503);
-            }
-        }catch(DuplicateModelException $e){
-            //@todo log
-            throw new ApiException(sprintf("Unique information have been duplicate: %s", json_encode($body)), 409);
-        }catch(\Exception $e){
-            //@todo log
-            throw new ApiException(sprintf("An error occured on client creation: %s", json_encode($body)), 503);
-        }
     }
-
-    public function put($id)
-    {}
-
-    public function delete($id)
-    {}
 }
 
