@@ -1,6 +1,8 @@
 <?php
 
-class Client extends \Phalcon\Mvc\Model
+use AbstractModel;
+
+class Client extends AbstractModel
 {
 
     /**
