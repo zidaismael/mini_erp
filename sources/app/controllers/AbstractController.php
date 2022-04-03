@@ -11,7 +11,7 @@ use Exception\ {
 /**
  * Controller abstract
  */
-class AbstactController extends \Phalcon\Mvc\Controller
+class AbstractController extends \Phalcon\Mvc\Controller
 {
 
     /**
@@ -48,10 +48,15 @@ class AbstactController extends \Phalcon\Mvc\Controller
      * @param int $httpCode            
      * @param mixed $content            
      */
-    protected function output(int $httpCode = 200, $content)
+    protected function output(int $httpCode = 200, $content=null)
     {
         $this->response->setStatusCode($httpCode);
-        return $this->response->setJsonContent($content);
+        
+        if(!is_null($content)){
+            return $this->response->setJsonContent($content);
+        }else{
+            return $this->response;
+        }
     }
 
     /**
