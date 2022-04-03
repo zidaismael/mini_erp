@@ -4,9 +4,6 @@ declare(strict_types=1);
 use Phalcon\Escaper;
 use Phalcon\Flash\Direct as Flash;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
-use Phalcon\Mvc\View;
-use Phalcon\Mvc\View\Engine\Php as PhpEngine;
-use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Session\Adapter\Stream as SessionAdapter;
 use Phalcon\Session\Manager as SessionManager;
 use Phalcon\Url as UrlResolver;
@@ -30,35 +27,6 @@ $container->setShared('url', function () {
     return $url;
 });
 
-/**
- * Setting up the view component
- */
-$container->setShared('view', function () {
-    $config = $this->getConfig();
-
-    $view = new View();
-    $view->setDI($this);
-    $view->setViewsDir($config->application->viewsDir);
-
-    $view->registerEngines([
-        '.volt' => function ($view) {
-            $config = $this->getConfig();
-
-            $volt = new VoltEngine($view, $this);
-
-            $volt->setOptions([
-                'path' => $config->application->cacheDir,
-                'separator' => '_'
-            ]);
-
-            return $volt;
-        },
-        '.phtml' => PhpEngine::class
-
-    ]);
-
-    return $view;
-});
 
 /**
  * Database connection is created based in the parameters defined in the configuration file
@@ -72,7 +40,11 @@ $container->setShared('db', function () {
         'username' => $config->database->username,
         'password' => $config->database->password,
         'dbname'   => $config->database->dbname,
-        'charset'  => $config->database->charset
+        'charset'  => $config->database->charset,
+        'options' => [
+            PDO::ATTR_EMULATE_PREPARES => false,
+            PDO::ATTR_STRINGIFY_FETCHES => false,
+        ]
     ];
 
     if ($config->database->adapter == 'Postgresql') {
