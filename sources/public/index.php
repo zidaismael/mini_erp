@@ -12,22 +12,26 @@ define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
 
 try {
-    
+
     $container = new FactoryDefault();
     $app = new Micro($container);
     
+    //services init
     include APP_PATH . '/config/services.php';
     
-    // load config
+    //load config
     $config = $container->getConfig();
     
+    //app Autoloader init
     include APP_PATH . '/config/loader.php';
 
-    // construct Mini-ERP routes
+    //construct Mini-ERP routes
     $erpRouter = new ErpRouter();
     $erpRouter->init($app);
     
+ 
     $app->handle($_SERVER["REQUEST_URI"]);
+    
 } catch (\Exception $e) {
     //force not set or unsupported code to 500;
     if(ApiException::validateCode($e->getCode())){
