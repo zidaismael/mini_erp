@@ -9,6 +9,7 @@ class ApiException extends \Exception
         401,
         403,
         404,
+        409,
         503
     ];
 
@@ -22,10 +23,10 @@ class ApiException extends \Exception
     
     /**
      * Validate api response code
-     * @param int $code
+     * @param mixed $code
      * @return true;
      */
-    public static function validateCode(int $code){
+    public static function validateCode($code){
         return in_array($code, static::$authorizedCodes);
     }
 }
