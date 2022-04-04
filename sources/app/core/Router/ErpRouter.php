@@ -6,12 +6,7 @@ use Phalcon\Mvc\Micro\Collection;
 
 class ErpRouter extends Collection
 {
-    /**
-     * api basepath
-     * @var string
-     */
-    protected $baseApiPath='/api';
-    
+
     /**
      * basic routes and controllers declarations
      * @var array
@@ -143,17 +138,18 @@ class ErpRouter extends Collection
     public function init(Micro $app){
         $erpRoutes=array_merge($this->basicRoutes,$this->extendsRoutes);
         
+        $basePath=$app->config->application->baseUri;
+        
         foreach($erpRoutes as $path => $route){
             foreach($route['method'] as $method){
                 $calledFunctionName=strtolower($method);
   
                 if(class_exists($route['controller']) && method_exists($this, $calledFunctionName) &&  method_exists($route['controller'], $calledFunctionName)){                  
-                    $this->setHandler(new $route['controller'])->setPrefix($this->baseApiPath)->$calledFunctionName('/'.$path, $calledFunctionName);
+                    $this->setHandler(new $route['controller'])->setPrefix($basePath.$path)->$calledFunctionName('', $calledFunctionName);
+                    $app->mount($this);
                 }
             }
         }
-
-        $app->mount($this);
     }
     
     
