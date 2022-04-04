@@ -1,6 +1,5 @@
 <?php
 namespace Exception;
-use CoreException;
 
 class ApiException extends \Exception
 {
