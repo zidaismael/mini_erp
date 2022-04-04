@@ -95,7 +95,8 @@ class AbstractController extends \Phalcon\Mvc\Controller
                 $validatorClassName = 'Email';
                 break;
             default:
-                throw new CoreException(sprintf("Unknown validation type %s %s", $expectedType, __FUNCTION__));
+                //@todo log
+                throw new CoreException(sprintf("Unknown validation type %s in %s", $expectedType, __METHOD__));
                 break;
         }
 

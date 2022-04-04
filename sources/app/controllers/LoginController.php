@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use ERP\User;
 
-class LoginController extends \Phalcon\Mvc\Controller
+class LoginController extends AbstractController
 {
     
     public function post()

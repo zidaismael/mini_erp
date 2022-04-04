@@ -65,7 +65,7 @@ class CompanyController extends AbstractController
                 return $this->output(201, $result);
             } else {
                 // @todo log
-                throw new ApiException(sprintf("An error occured on company creation: %s", json_encode($body)), 503);
+                throw new ApiException(sprintf("An error occured on company creation: %s", json_encode($body)));
             }
         } catch (DuplicateModelException $e) {
             // @todo log
@@ -74,7 +74,7 @@ class CompanyController extends AbstractController
         } catch (\Exception $e) {
             // @todo log
             var_dump($e->getMessage());
-            throw new ApiException(sprintf("An error occured on company creation: %s", json_encode($body)), 503);
+            throw new ApiException(sprintf("An error occured on company creation: %s", json_encode($body)));
         }
     }
 
@@ -115,7 +115,7 @@ class CompanyController extends AbstractController
                 return $this->output(200, $company);
             } else {
                 // @todo log
-                throw new ApiException(sprintf("An error occured on company update: %s", json_encode($body)), 503);
+                throw new ApiException(sprintf("An error occured on company update: %s", json_encode($body)));
             }
         } catch (DuplicateModelException $e) {
             // @todo log
@@ -124,7 +124,7 @@ class CompanyController extends AbstractController
         } catch (\Exception $e) {
             // @todo log
             var_dump($e->getMessage());
-            throw new ApiException(sprintf("An error occured on company creation: %s", json_encode($body)), 503);
+            throw new ApiException(sprintf("An error occured on company creation: %s", json_encode($body)));
         }
     }
 
@@ -161,7 +161,7 @@ class CompanyController extends AbstractController
         $this->validateData('string', $body['name'], [
             'min' => 2,
             'max' => 100,
-            'messageMaximum' => "Company's lastname must be a string between 2 and 100 characters",
+            'messageMaximum' => "Company's name must be a string between 2 and 100 characters",
             'includedMinimum' => false,
             'includedMaximum' => false
         ]);

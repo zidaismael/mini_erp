@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-class ProviderController extends \Phalcon\Mvc\Controller
+class ProviderController extends AbstractController
 {
 
     public function indexAction()

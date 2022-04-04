@@ -2,6 +2,7 @@
 
 use Phalcon\Mvc\ModelInterface;
 use Exception\DuplicateModelException;
+use Exception\ForeignKeyModelException;
 
 class AbstractModel extends \Phalcon\Mvc\Model
 {
@@ -38,11 +39,7 @@ class AbstractModel extends \Phalcon\Mvc\Model
         try{
             return parent::create();
         }catch(\Exception $e){
-            if($e->getCode()=="23000"){
-                throw new DuplicateModelException($e->getMessage(), $e->getCode());
-            }else{
-                throw $e;
-            }
+             $this->handleException($e);
         } 
     }
     
@@ -56,12 +53,29 @@ class AbstractModel extends \Phalcon\Mvc\Model
         try{
             return parent::save();
         }catch(\Exception $e){
-            if($e->getCode()=="23000"){
-                throw new DuplicateModelException($e->getMessage(), $e->getCode());
-            }else{
-                throw $e;
+            $this->handleException($e);
+        }
+    }
+    
+    /**
+     * Handle exception to throw specific exceptions when necessary
+     * @param \Exception $e
+     * @throws DuplicateModelException
+     * @throws ForeignKeyModelException
+     * @throws \\Exception
+     */
+    protected function handleException(\Exception $e){
+        if($e->getCode()=="23000"){
+            $errorMessage=$e->getMessage();
+        
+            if(DuplicateModelException::isDuplicateError($errorMessage)){
+                throw new DuplicateModelException($errorMessage, $e->getCode());
+            }else if(ForeignKeyModelException::isIntegrityError($errorMessage)){
+                throw new ForeignKeyModelException($errorMessage, $e->getCode());
             }
         }
+        
+        throw $e;
     }
     
 }

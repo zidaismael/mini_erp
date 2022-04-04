@@ -66,7 +66,7 @@ class ClientController extends AbstractController
                 return $this->output(201, $result);
             } else {
                 // @todo log
-                throw new ApiException(sprintf("An error occured on client creation: %s", json_encode($body)), 503);
+                throw new ApiException(sprintf("An error occured on client creation: %s", json_encode($body)));
             }
         } catch (DuplicateModelException $e) {
             // @todo log
@@ -75,7 +75,7 @@ class ClientController extends AbstractController
         } catch (\Exception $e) {
             // @todo log
             var_dump($e->getMessage());
-            throw new ApiException(sprintf("An error occured on client creation: %s", json_encode($body)), 503);
+            throw new ApiException(sprintf("An error occured on client creation: %s", json_encode($body)));
         }
     }
 
@@ -117,7 +117,7 @@ class ClientController extends AbstractController
                 return $this->output(200, $client);
             } else {
                 // @todo log
-                throw new ApiException(sprintf("An error occured on client update: %s", json_encode($body)), 503);
+                throw new ApiException(sprintf("An error occured on client update: %s", json_encode($body)));
             }
         } catch (DuplicateModelException $e) {
             // @todo log
@@ -126,7 +126,7 @@ class ClientController extends AbstractController
         } catch (\Exception $e) {
             // @todo log
             var_dump($e->getMessage());
-            throw new ApiException(sprintf("An error occured on client creation: %s", json_encode($body)), 503);
+            throw new ApiException(sprintf("An error occured on client creation: %s", json_encode($body)));
         }
     }
 
