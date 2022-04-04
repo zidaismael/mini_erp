@@ -48,7 +48,6 @@ class CompanyController extends AbstractController
      */
     public function post()
     {
-        die('uyguyyg');
         // get body and check mandatory input parameters validation
         $body = $this->getBody([
             'name',
@@ -102,6 +101,12 @@ class CompanyController extends AbstractController
         ]);
         
         $this->validateMandatoryInput($body);
+        
+        //check if exists
+        $result=Client::find($id);
+        if(empty($result->toArray())){
+            return $this->output(404);
+        }
         
         $company = new Company();
         $company->id = $id;
