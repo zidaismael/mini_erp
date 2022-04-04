@@ -1,6 +1,6 @@
 <?php
 
-class Employee extends AbstractModel
+class ProductModel extends AbstractModel
 {
 
     /**
@@ -19,31 +19,25 @@ class Employee extends AbstractModel
      *
      * @var string
      */
-    public $lastname;
+    public $name;
 
     /**
      *
-     * @var string
+     * @var double
      */
-    public $firstname;
+    public $price;
 
     /**
      *
-     * @var string
+     * @var double
      */
-    public $birthday;
+    public $tax;
 
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $country;
-
-    /**
-     *
-     * @var string
-     */
-    public $contract_date;
+    public $stock;
 
     /**
      *
@@ -52,21 +46,28 @@ class Employee extends AbstractModel
     public $company_id;
 
     /**
+     *
+     * @var integer
+     */
+    public $provider_id;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
     {
         $this->setSchema("mini_erp");
-        $this->setSource("employee");
-        $this->hasMany('id', 'Transaction', 'employee_id', ['alias' => 'Transaction']);
+        $this->setSource("product");
+        $this->hasMany('id', 'RelTransactionProduct', 'id_product', ['alias' => 'RelTransactionProduct']);
         $this->belongsTo('company_id', '\Company', 'id', ['alias' => 'Company']);
+        $this->belongsTo('provider_id', '\Provider', 'id', ['alias' => 'Provider']);
     }
-
+    
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Employee[]|Employee|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return Product[]|Product|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null): \Phalcon\Mvc\Model\ResultsetInterface
     {
@@ -77,7 +78,7 @@ class Employee extends AbstractModel
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Employee|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     * @return Product|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
      */
     public static function findFirst($parameters = null): ?\Phalcon\Mvc\ModelInterface
     {

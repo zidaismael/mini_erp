@@ -1,6 +1,6 @@
 <?php
 
-class Provider extends AbstractModel
+class ProviderModel extends AbstractModel
 {
 
     /**

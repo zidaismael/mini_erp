@@ -1,6 +1,6 @@
 <?php
 
-class Company extends AbstractModel
+class ClientModel extends AbstractModel
 {
 
     /**
@@ -19,13 +19,19 @@ class Company extends AbstractModel
      *
      * @var string
      */
-    public $name;
+    public $lastname;
 
     /**
      *
-     * @var double
+     * @var string
      */
-    public $balance;
+    public $firstname;
+
+    /**
+     *
+     * @var string
+     */
+    public $address;
 
     /**
      *
@@ -39,16 +45,15 @@ class Company extends AbstractModel
     public function initialize()
     {
         $this->setSchema("mini_erp");
-        $this->setSource("company");
-        $this->hasMany('id', 'Employee', 'company_id', ['alias' => 'Employee']);
-        $this->hasMany('id', 'Product', 'company_id', ['alias' => 'Product']);
+        $this->setSource("client");
+        $this->hasMany('id', 'Transaction', 'client_id', ['alias' => 'Transaction']);
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Company[]|Company|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return Client[]|Client|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null): \Phalcon\Mvc\Model\ResultsetInterface
     {
@@ -59,7 +64,7 @@ class Company extends AbstractModel
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Company|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     * @return Client|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
      */
     public static function findFirst($parameters = null): ?\Phalcon\Mvc\ModelInterface
     {

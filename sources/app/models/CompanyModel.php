@@ -1,6 +1,6 @@
 <?php
 
-class Product extends AbstractModel
+class CompanyModel extends AbstractModel
 {
 
     /**
@@ -25,31 +25,13 @@ class Product extends AbstractModel
      *
      * @var double
      */
-    public $price;
+    public $balance;
 
     /**
      *
-     * @var double
+     * @var string
      */
-    public $tax;
-
-    /**
-     *
-     * @var integer
-     */
-    public $stock;
-
-    /**
-     *
-     * @var integer
-     */
-    public $company_id;
-
-    /**
-     *
-     * @var integer
-     */
-    public $provider_id;
+    public $country;
 
     /**
      * Initialize method for model.
@@ -57,17 +39,16 @@ class Product extends AbstractModel
     public function initialize()
     {
         $this->setSchema("mini_erp");
-        $this->setSource("product");
-        $this->hasMany('id', 'RelTransactionProduct', 'id_product', ['alias' => 'RelTransactionProduct']);
-        $this->belongsTo('company_id', '\Company', 'id', ['alias' => 'Company']);
-        $this->belongsTo('provider_id', '\Provider', 'id', ['alias' => 'Provider']);
+        $this->setSource("company");
+        $this->hasMany('id', 'Employee', 'company_id', ['alias' => 'Employee']);
+        $this->hasMany('id', 'Product', 'company_id', ['alias' => 'Product']);
     }
-    
+
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Product[]|Product|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return Company[]|Company|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null): \Phalcon\Mvc\Model\ResultsetInterface
     {
@@ -78,7 +59,7 @@ class Product extends AbstractModel
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Product|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     * @return Company|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
      */
     public static function findFirst($parameters = null): ?\Phalcon\Mvc\ModelInterface
     {
