@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class User extends \Phalcon\Mvc\Model
+class User extends AbstractModel
 {
 
     /**

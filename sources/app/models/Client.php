@@ -1,7 +1,5 @@
 <?php
 
-use AbstractModel;
-
 class Client extends AbstractModel
 {
 

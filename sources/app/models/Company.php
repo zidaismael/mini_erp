@@ -1,6 +1,6 @@
 <?php
 
-class Company extends \Phalcon\Mvc\Model
+class Company extends AbstractModel
 {
 
     /**

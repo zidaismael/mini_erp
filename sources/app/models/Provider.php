@@ -1,6 +1,6 @@
 <?php
 
-class Provider extends \Phalcon\Mvc\Model
+class Provider extends AbstractModel
 {
 
     /**

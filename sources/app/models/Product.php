@@ -1,6 +1,6 @@
 <?php
 
-class Product extends \Phalcon\Mvc\Model
+class Product extends AbstractModel
 {
 
     /**

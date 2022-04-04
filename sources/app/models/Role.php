@@ -1,6 +1,6 @@
 <?php
 
-class Role extends \Phalcon\Mvc\Model
+class Role extends AbstractModel
 {
 
     /**

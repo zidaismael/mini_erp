@@ -1,6 +1,6 @@
 <?php
 
-class Employee extends \Phalcon\Mvc\Model
+class Employee extends AbstractModel
 {
 
     /**

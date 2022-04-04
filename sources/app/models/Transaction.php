@@ -1,6 +1,6 @@
 <?php
 
-class Transaction extends \Phalcon\Mvc\Model
+class Transaction extends AbstractModel
 {
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-class TransactionHistory extends \Phalcon\Mvc\Model
+class TransactionHistory extends AbstractModel
 {
 
     /**
