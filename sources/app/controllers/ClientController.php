@@ -61,7 +61,7 @@ class ClientController extends AbstractController
         
         $client = new Client();
         $client->assign($body);
-        
+    
         try {
             if ($client->create()) {
                 $result = $client->find($client->id);
@@ -72,9 +72,11 @@ class ClientController extends AbstractController
             }
         } catch (DuplicateModelException $e) {
             // @todo log
+            var_dump($e->getMessage());
             throw new ApiException(sprintf("Unique information have been duplicate: %s \nbody: %s", $e->getSubject(), json_encode($body)), 409);
         } catch (\Exception $e) {
             // @todo log
+            var_dump($e->getMessage());
             throw new ApiException(sprintf("An error occured on client creation: %s", json_encode($body)), 503);
         }
     }
@@ -103,6 +105,12 @@ class ClientController extends AbstractController
         
         $this->validateMandatoryInput($body);
         
+        //check if exists
+        $result=Client::find($id);
+        if(empty($result->toArray())){
+            return $this->output(404);
+        }
+        
         $client = new Client();
         $client->id = $id;
         $client->assign($body);
@@ -113,15 +121,15 @@ class ClientController extends AbstractController
                 return $this->output(200, $result->toArray()[0]);
             } else {
                 // @todo log
-                
                 throw new ApiException(sprintf("An error occured on client update: %s", json_encode($body)), 503);
             }
         } catch (DuplicateModelException $e) {
             // @todo log
+            var_dump($e->getMessage());
             throw new ApiException(sprintf("Unique information have been duplicate: %s \nbody: %s", $e->getSubject(), json_encode($body)), 409);
         } catch (\Exception $e) {
             // @todo log
-            
+            var_dump($e->getMessage());
             throw new ApiException(sprintf("An error occured on client creation: %s", json_encode($body)), 503);
         }
     }
