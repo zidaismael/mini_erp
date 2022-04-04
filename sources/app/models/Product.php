@@ -62,7 +62,7 @@ class Product extends AbstractModel
         $this->belongsTo('company_id', '\Company', 'id', ['alias' => 'Company']);
         $this->belongsTo('provider_id', '\Provider', 'id', ['alias' => 'Provider']);
     }
-
+    
     /**
      * Allows to query a set of records that match the specified conditions
      *

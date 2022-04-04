@@ -16,7 +16,7 @@ class ApiException extends \Exception
         parent::__construct($message,$code,$previous);
         
         if(!in_array($code, static::$authorizedCodes)){
-            throw new CoreException(sprintf("Unsupported api exception error code: %d", $code));
+            throw new CoreException(sprintf("Unsupported api exception error code: %d => %s", $code, $message));
         }
     }
     
