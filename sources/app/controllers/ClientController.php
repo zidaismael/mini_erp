@@ -7,9 +7,9 @@ use Exception\DuplicateModelException;
 class ClientController extends AbstractController
 {
 
-    /**
+     /**
      * Get Client list or one client
-     * 
+     *
      * @param int $id
      *            default null, if null => list else get one
      * @return \Phalcon\Http\Response
@@ -18,24 +18,22 @@ class ClientController extends AbstractController
     {
         if (is_null($id)) { // no id passed => list
             $result = Client::find();
-        } else { // id passed => get one     
-            // input parameters validation
+            $client = $result->toArray();
+        } else { // id passed => get one
+                 // input parameters validation
             $this->validateData('int', $id, [
                 'message' => "Id must be an integer."
             ]);
             
-            $result = Client::find($id);
+            $client = Client::findFirst($id);
         }
-        
-        $client = $result->toArray();
-        
-        if (! empty($client)) { //result in DB
-            $client = is_null($id) ? $client : $client[0];
+
+        if (! empty($client)) { // result in DB
             return $this->output(200, $client);
-        } else { //no result
-            if(is_null($id)){
+        } else { // no result
+            if (is_null($id)) {
                 return $this->output(200, []);
-            }else{
+            } else {
                 return $this->output(404);
             }
         }
@@ -43,14 +41,13 @@ class ClientController extends AbstractController
 
     /**
      * Create Client
-     * 
+     *
      * @return \Phalcon\Http\Response
      */
     public function post()
     {
         // get body and check mandatory input parameters validation
         $body = $this->getBody([
-            'reference',
             'lastname',
             'firstname',
             'address',
@@ -61,11 +58,12 @@ class ClientController extends AbstractController
         
         $client = new Client();
         $client->assign($body);
-    
+        $this->setReference($client);
+        
         try {
             if ($client->create()) {
-                $result = $client->find($client->id);
-                return $this->output(201, $result->toArray()[0]);
+                $result = $client->findFirst($client->id);
+                return $this->output(201, $result);
             } else {
                 // @todo log
                 throw new ApiException(sprintf("An error occured on client creation: %s", json_encode($body)), 503);
@@ -83,7 +81,7 @@ class ClientController extends AbstractController
 
     /**
      * Update Client
-     * 
+     *
      * @param int $id            
      */
     public function put(int $id)
@@ -91,7 +89,6 @@ class ClientController extends AbstractController
         
         // get body and check mandatory input parameters validation
         $body = $this->getBody([
-            'reference',
             'lastname',
             'firstname',
             'address',
@@ -106,19 +103,18 @@ class ClientController extends AbstractController
         $this->validateMandatoryInput($body);
         
         //check if exists
-        $result=Client::find($id);
-        if(empty($result->toArray())){
+        $client=Client::findFirst($id);
+    
+        if(empty($client)){
             return $this->output(404);
         }
-        
-        $client = new Client();
-        $client->id = $id;
+
         $client->assign($body);
         
         try {
             if ($client->save()) {
-                $result = $client->find($client->id);
-                return $this->output(200, $result->toArray()[0]);
+                $client = $client->findFirst($client->id);
+                return $this->output(200, $client);
             } else {
                 // @todo log
                 throw new ApiException(sprintf("An error occured on client update: %s", json_encode($body)), 503);
@@ -136,7 +132,7 @@ class ClientController extends AbstractController
 
     /**
      * Delete Client
-     * 
+     *
      * @param int $id            
      */
     public function delete(int $id)
@@ -146,15 +142,14 @@ class ClientController extends AbstractController
             'message' => "Id must be an integer."
         ]);
         
-        $client = Client::find($id);
+        $client = Client::findFirst($id);
         
-        if (empty($client->toArray())) {
+        if (empty($client)) {
             return $this->output(404);
         } else {
             $client->delete();
             return $this->output(204);
         }
-        
     }
 
     /**
@@ -165,15 +160,6 @@ class ClientController extends AbstractController
     protected function validateMandatoryInput(array $body)
     {
         // validate input field values
-        $this->validateData('string', $body['reference'], [
-            'min' => 10,
-            'max' => 10,
-            'messageMaximum' => "Client's reference must be a 10 characters string",
-            'messageMinimum' => "Client's reference must be a 10 characters string",
-            'includedMinimum' => false,
-            'includedMaximum' => false
-        ]);
-        
         $this->validateData('string', $body['lastname'], [
             'min' => 2,
             'max' => 50,
@@ -202,6 +188,16 @@ class ClientController extends AbstractController
             'includedMinimum' => false,
             'includedMaximum' => false
         ]);
+    }
+    
+    /**
+     * Auto set reference
+     *
+     * @param \Phalcon\Mvc\Model $client
+     */
+    protected function setReference(\Phalcon\Mvc\Model $client)
+    {
+        $client->reference = sprintf("CLI%d", random_int(0, 999999999));
     }
 }
 

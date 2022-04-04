@@ -18,19 +18,17 @@ class CompanyController extends AbstractController
     {
         if (is_null($id)) { // no id passed => list
             $result = Company::find();
+            $company = $result->toArray();
         } else { // id passed => get one
                  // input parameters validation
             $this->validateData('int', $id, [
                 'message' => "Id must be an integer."
             ]);
             
-            $result = Company::find($id);
+            $company = Company::findFirst($id);
         }
-        
-        $company = $result->toArray();
-        
+
         if (! empty($company)) { // result in DB
-            $company = is_null($id) ? $company : $company[0];
             return $this->output(200, $company);
         } else { // no result
             if (is_null($id)) {
@@ -63,8 +61,8 @@ class CompanyController extends AbstractController
         
         try {
             if ($company->create()) {
-                $result = $company->find($company->id);
-                return $this->output(201, $result->toArray()[0]);
+                $result = $company->findFirst($company->id);
+                return $this->output(201, $result);
             } else {
                 // @todo log
                 throw new ApiException(sprintf("An error occured on company creation: %s", json_encode($body)), 503);
@@ -103,19 +101,18 @@ class CompanyController extends AbstractController
         $this->validateMandatoryInput($body);
         
         //check if exists
-        $result=Client::find($id);
-        if(empty($result->toArray())){
+        $company=Company::findFirst($id);
+    
+        if(empty($company)){
             return $this->output(404);
         }
-        
-        $company = new Company();
-        $company->id = $id;
+
         $company->assign($body);
         
         try {
             if ($company->save()) {
-                $result = $company->find($company->id);
-                return $this->output(200, $result->toArray()[0]);
+                $company = $company->findFirst($company->id);
+                return $this->output(200, $company);
             } else {
                 // @todo log
                 throw new ApiException(sprintf("An error occured on company update: %s", json_encode($body)), 503);
@@ -143,9 +140,9 @@ class CompanyController extends AbstractController
             'message' => "Id must be an integer."
         ]);
         
-        $company = Company::find($id);
+        $company = Company::findFirst($id);
         
-        if (empty($company->toArray())) {
+        if (empty($company)) {
             return $this->output(404);
         } else {
             $company->delete();
@@ -187,7 +184,7 @@ class CompanyController extends AbstractController
      */
     protected function setReference(\Phalcon\Mvc\Model $company)
     {
-        $company->reference = sprintf("CPY%.10d", random_int(0, 999999999));
+        $company->reference = sprintf("CPY%d", random_int(0, 999999999));
     }
 }
 
