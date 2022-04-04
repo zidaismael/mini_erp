@@ -20,7 +20,11 @@ class AbstractModel extends \Phalcon\Mvc\Model
         }
         
         $bind=array_intersect_key($data, $modelProperties);
-        return parent::assign($data);
+        
+        //exclude reference column update because of app internal management
+        $bind=array_diff_key($bind,['reference'=>'']);
+
+        return parent::assign($bind);
     }
     
     
