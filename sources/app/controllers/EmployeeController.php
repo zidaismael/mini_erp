@@ -8,7 +8,7 @@ use Exception\ForeignKeyModelException;
 class EmployeeController extends AbstractController
 {
 
-/**
+    /**
      * Get Employee list or one employee
      *
      * @param int $id
@@ -200,7 +200,6 @@ class EmployeeController extends AbstractController
         ]);
         
         $this->validateData('int', $body['company_id'], [
-            "format"  => "Y-m-d",
             'message' => "Invalid company id",
         ]);
         
@@ -220,7 +219,7 @@ class EmployeeController extends AbstractController
      */
     protected function setReference(\Phalcon\Mvc\Model $employee)
     {
-        $employee->reference = sprintf("EMP%d", random_int(0, 999999999));
+        $employee->reference = sprintf("EMP_%d", random_int(0, 999999999));
     }
 
 }

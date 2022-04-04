@@ -197,7 +197,7 @@ class ClientController extends AbstractController
      */
     protected function setReference(\Phalcon\Mvc\Model $client)
     {
-        $client->reference = sprintf("CLI%d", random_int(0, 999999999));
+        $client->reference = sprintf("CLI_%d", random_int(0, 999999999));
     }
 }
 

@@ -184,7 +184,7 @@ class CompanyController extends AbstractController
      */
     protected function setReference(\Phalcon\Mvc\Model $company)
     {
-        $company->reference = sprintf("CPY%d", random_int(0, 999999999));
+        $company->reference = sprintf("CPY_%d", random_int(0, 999999999));
     }
 }
 
