@@ -35,7 +35,7 @@ class EmployeeController extends AbstractController
             if (is_null($id)) {
                 return $this->output(200, []);
             } else {
-                return $this->output(404);
+                throw new ApiException("Not found",404);
             }
         }
     }
@@ -113,7 +113,7 @@ class EmployeeController extends AbstractController
         $employee=Employee::findFirst($id);
     
         if(empty($employee)){
-            return $this->output(404);
+            throw new ApiException("Not found",404);
         }
 
         $employee->assign($body);
@@ -156,7 +156,7 @@ class EmployeeController extends AbstractController
         $employee = Employee::findFirst($id);
         
         if (empty($employee)) {
-            return $this->output(404);
+            throw new ApiException("Not found",404);
         } else {
             $employee->delete();
             return $this->output(204);

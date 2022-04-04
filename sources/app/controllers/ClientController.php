@@ -34,7 +34,7 @@ class ClientController extends AbstractController
             if (is_null($id)) {
                 return $this->output(200, []);
             } else {
-                return $this->output(404);
+                throw new ApiException("Not found",404);
             }
         }
     }
@@ -106,7 +106,7 @@ class ClientController extends AbstractController
         $client=Client::findFirst($id);
     
         if(empty($client)){
-            return $this->output(404);
+            throw new ApiException("Not found",404);
         }
 
         $client->assign($body);
@@ -145,7 +145,7 @@ class ClientController extends AbstractController
         $client = Client::findFirst($id);
         
         if (empty($client)) {
-            return $this->output(404);
+            throw new ApiException("Not found",404);
         } else {
             $client->delete();
             return $this->output(204);

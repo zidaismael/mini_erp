@@ -34,7 +34,7 @@ class CompanyController extends AbstractController
             if (is_null($id)) {
                 return $this->output(200, []);
             } else {
-                return $this->output(404);
+                throw new ApiException("Not found",404);
             }
         }
     }
@@ -104,7 +104,7 @@ class CompanyController extends AbstractController
         $company=Company::findFirst($id);
     
         if(empty($company)){
-            return $this->output(404);
+            throw new ApiException("Not found",404);
         }
 
         $company->assign($body);
@@ -143,7 +143,7 @@ class CompanyController extends AbstractController
         $company = Company::findFirst($id);
         
         if (empty($company)) {
-            return $this->output(404);
+            throw new ApiException("Not found",404);
         } else {
             $company->delete();
             return $this->output(204);

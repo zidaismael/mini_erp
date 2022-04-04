@@ -35,7 +35,7 @@ class ProductController extends AbstractController
             if (is_null($id)) {
                 return $this->output(200, []);
             } else {
-                return $this->output(404);
+                throw new ApiException("Not found",404);
             }
         }
     }
@@ -116,7 +116,7 @@ class ProductController extends AbstractController
         $product = Product::findFirst($id);
         
         if (empty($product)) {
-            return $this->output(404);
+            throw new ApiException("Not found",404);
         }
         
         $product->assign($body);
@@ -159,7 +159,7 @@ class ProductController extends AbstractController
         $product = Product::findFirst($id);
         
         if (empty($product)) {
-            return $this->output(404);
+            throw new ApiException("Not found",404);
         } else {
             $product->delete();
             return $this->output(204);

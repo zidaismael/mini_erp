@@ -34,7 +34,7 @@ class ProviderController extends AbstractController
             if (is_null($id)) {
                 return $this->output(200, []);
             } else {
-                return $this->output(404);
+                throw new ApiException("Not found",404);
             }
         }
     }
@@ -104,7 +104,7 @@ class ProviderController extends AbstractController
         $provider=Provider::findFirst($id);
     
         if(empty($provider)){
-            return $this->output(404);
+            throw new ApiException("Not found",404);
         }
 
         $provider->assign($body);
@@ -143,7 +143,7 @@ class ProviderController extends AbstractController
         $provider = Provider::findFirst($id);
         
         if (empty($provider)) {
-            return $this->output(404);
+            throw new ApiException("Not found",404);
         } else {
             $provider->delete();
             return $this->output(204);
