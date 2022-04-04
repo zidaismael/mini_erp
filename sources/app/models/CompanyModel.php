@@ -40,8 +40,8 @@ class CompanyModel extends AbstractModel
     {
         $this->setSchema("mini_erp");
         $this->setSource("company");
-        $this->hasMany('id', 'Employee', 'company_id', ['alias' => 'Employee']);
-        $this->hasMany('id', 'Product', 'company_id', ['alias' => 'Product']);
+        $this->hasMany('id', 'EmployeeModel', 'company_id', ['alias' => 'Employee']);
+        $this->hasMany('id', 'ProductModel', 'company_id', ['alias' => 'Product']);
     }
 
     /**

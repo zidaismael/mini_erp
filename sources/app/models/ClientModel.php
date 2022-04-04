@@ -46,7 +46,7 @@ class ClientModel extends AbstractModel
     {
         $this->setSchema("mini_erp");
         $this->setSource("client");
-        $this->hasMany('id', 'Transaction', 'client_id', ['alias' => 'Transaction']);
+        $this->hasMany('id', 'TransactionModel', 'client_id', ['alias' => 'Transaction']);
     }
 
     /**

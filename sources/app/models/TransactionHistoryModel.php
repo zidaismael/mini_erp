@@ -1,6 +1,6 @@
 <?php
 
-class Transaction extends AbstractModel
+class TransactionHistoryModel extends AbstractModel
 {
 
     /**
@@ -19,43 +19,67 @@ class Transaction extends AbstractModel
      *
      * @var string
      */
-    public $reference;
+    public $transaction_reference;
 
     /**
      *
      * @var string
      */
-    public $type;
+    public $transaction_type;
+
+    /**
+     *
+     * @var string
+     */
+    public $seller_reference;
+
+    /**
+     *
+     * @var string
+     */
+    public $seller_name;
+
+    /**
+     *
+     * @var string
+     */
+    public $buyer_reference;
+
+    /**
+     *
+     * @var string
+     */
+    public $buyer_name;
+
+    /**
+     *
+     * @var string
+     */
+    public $product_reference;
+
+    /**
+     *
+     * @var string
+     */
+    public $product_name;
 
     /**
      *
      * @var integer
      */
-    public $employee_id;
-
-    /**
-     *
-     * @var integer
-     */
-    public $client_id;
-
-    /**
-     *
-     * @var integer
-     */
-    public $product_quantity;
+    public $quantity;
 
     /**
      *
      * @var double
      */
-    public $product_price;
+    public $price;
 
     /**
      *
      * @var double
      */
-    public $product_tax;
+    public $tax;
 
     /**
      * Initialize method for model.
@@ -63,17 +87,14 @@ class Transaction extends AbstractModel
     public function initialize()
     {
         $this->setSchema("mini_erp");
-        $this->setSource("transaction");
-        $this->hasMany('id', 'RelTransactionProduct', 'id_transaction', ['alias' => 'RelTransactionProduct']);
-        $this->belongsTo('client_id', '\Client', 'id', ['alias' => 'Client']);
-        $this->belongsTo('employee_id', '\Employee', 'id', ['alias' => 'Employee']);
+        $this->setSource("transaction_history");
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Transaction[]|Transaction|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return TransactionHistory[]|TransactionHistory|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null): \Phalcon\Mvc\Model\ResultsetInterface
     {
@@ -84,7 +105,7 @@ class Transaction extends AbstractModel
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Transaction|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     * @return TransactionHistory|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
      */
     public static function findFirst($parameters = null): ?\Phalcon\Mvc\ModelInterface
     {

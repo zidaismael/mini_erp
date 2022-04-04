@@ -1,33 +1,32 @@
 <?php
 
-namespace Model;
-
-class User extends AbstractModel
+class RoleModel extends AbstractModel
 {
 
     /**
      *
      * @var integer
      */
-    public $id;
+    protected $id;
 
     /**
      *
      * @var string
      */
-    public $login;
+    protected $name;
 
     /**
      *
      * @var string
      */
-    public $password;
-
-    /**
-     *
-     * @var integer
-     */
-    public $role_id;
+    protected $access_type;
+    
+    public function columnMap()
+    {
+        return [
+            'access_type'  => 'accessType',
+        ];
+    }
 
     /**
      * Initialize method for model.
@@ -35,15 +34,15 @@ class User extends AbstractModel
     public function initialize()
     {
         $this->setSchema("mini_erp");
-        $this->setSource("user");
-        $this->belongsTo('id', '\Role', 'id', ['alias' => 'Role']);
+        $this->setSource("role");
+        $this->hasMany('id', 'UserModel', 'id', ['alias' => 'User']);
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return User[]|User|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return Role[]|Role|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null): \Phalcon\Mvc\Model\ResultsetInterface
     {
@@ -54,11 +53,22 @@ class User extends AbstractModel
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return User|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     * @return Role|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
      */
     public static function findFirst($parameters = null): ?\Phalcon\Mvc\ModelInterface
     {
         return parent::findFirst($parameters);
     }
+    
+    public function getId(){
+        return (int) $this->id;
+    }
+    
+    public function getName(){
+        return (string) $this->name;
+    }
 
+    public function getAccessType(){
+        return (string) $this->accessType;
+    }
 }

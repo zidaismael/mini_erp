@@ -58,8 +58,8 @@ class EmployeeModel extends AbstractModel
     {
         $this->setSchema("mini_erp");
         $this->setSource("employee");
-        $this->hasMany('id', 'Transaction', 'employee_id', ['alias' => 'Transaction']);
-        $this->belongsTo('company_id', '\Company', 'id', ['alias' => 'Company']);
+        $this->hasMany('id', 'TransactionModel', 'employee_id', ['alias' => 'Transaction']);
+        $this->belongsTo('company_id', 'CompanyModel', 'id', ['alias' => 'Company']);
     }
 
     /**

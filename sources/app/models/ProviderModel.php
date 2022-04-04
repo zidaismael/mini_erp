@@ -40,7 +40,7 @@ class ProviderModel extends AbstractModel
     {
         $this->setSchema("mini_erp");
         $this->setSource("provider");
-        $this->hasMany('id', 'Product', 'provider_id', ['alias' => 'Product']);
+        $this->hasMany('id', 'ProductModel', 'provider_id', ['alias' => 'Product']);
     }
 
     /**
