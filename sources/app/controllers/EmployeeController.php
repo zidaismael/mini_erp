@@ -18,7 +18,7 @@ class EmployeeController extends AbstractController
     public function get($id = null)
     {
         if (is_null($id)) { // no id passed => list
-            $result = Employee::find();
+            $result = EmployeeModel::find();
             $employee = $result->toArray();
         } else { // id passed => get one
                  // input parameters validation
@@ -26,7 +26,7 @@ class EmployeeController extends AbstractController
                 'message' => "Id must be an integer."
             ]);
             
-            $employee = Employee::findFirst($id);
+            $employee = EmployeeModel::findFirst($id);
         }
 
         if (! empty($employee)) { // result in DB
@@ -58,7 +58,7 @@ class EmployeeController extends AbstractController
         
         $this->validateMandatoryInput($body);
         
-        $employee = new Employee();
+        $employee = new EmployeeModel();
         $employee->assign($body);
         $this->setReference($employee);
         
@@ -110,7 +110,7 @@ class EmployeeController extends AbstractController
         $this->validateMandatoryInput($body);
         
         //check if exists
-        $employee=Employee::findFirst($id);
+        $employee=EmployeeModel::findFirst($id);
     
         if(empty($employee)){
             throw new ApiException("Not found",404);
@@ -153,7 +153,7 @@ class EmployeeController extends AbstractController
             'message' => "Id must be an integer."
         ]);
         
-        $employee = Employee::findFirst($id);
+        $employee = EmployeeModel::findFirst($id);
         
         if (empty($employee)) {
             throw new ApiException("Not found",404);

@@ -11,7 +11,7 @@ class ProviderProductController extends AbstractController
      */
     public function get(int $id)
     {
-        $provider = Provider::findFirst($id);
+        $provider = ProviderModel::findFirst($id);
     
         if(empty($provider)){
             throw new ApiException("Not found",404);

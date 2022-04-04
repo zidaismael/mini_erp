@@ -11,7 +11,7 @@ class ClientTransactionController extends AbstractController
      */
     public function get(int $id)
     {
-        $client = Client::findFirst($id);
+        $client = ClientModel::findFirst($id);
     
         if(empty($client)){
             throw new ApiException("Not found",404);

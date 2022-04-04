@@ -17,7 +17,7 @@ class ClientController extends AbstractController
     public function get($id = null)
     {
         if (is_null($id)) { // no id passed => list
-            $result = Client::find();
+            $result = ClientModel::find();
             $client = $result->toArray();
         } else { // id passed => get one
                  // input parameters validation
@@ -25,7 +25,7 @@ class ClientController extends AbstractController
                 'message' => "Id must be an integer."
             ]);
             
-            $client = Client::findFirst($id);
+            $client = ClientModel::findFirst($id);
         }
 
         if (! empty($client)) { // result in DB
@@ -56,7 +56,7 @@ class ClientController extends AbstractController
         
         $this->validateMandatoryInput($body);
         
-        $client = new Client();
+        $client = new ClientModel();
         $client->assign($body);
         $this->setReference($client);
         
@@ -103,7 +103,7 @@ class ClientController extends AbstractController
         $this->validateMandatoryInput($body);
         
         //check if exists
-        $client=Client::findFirst($id);
+        $client=ClientModel::findFirst($id);
     
         if(empty($client)){
             throw new ApiException("Not found",404);
@@ -142,7 +142,7 @@ class ClientController extends AbstractController
             'message' => "Id must be an integer."
         ]);
         
-        $client = Client::findFirst($id);
+        $client = ClientModel::findFirst($id);
         
         if (empty($client)) {
             throw new ApiException("Not found",404);

@@ -18,7 +18,7 @@ class ProductController extends AbstractController
     public function get($id = null)
     {
         if (is_null($id)) { // no id passed => list
-            $result = Product::find();
+            $result = ProductModel::find();
             $product = $result->toArray();
         } else { // id passed => get one
                  // input parameters validation
@@ -26,7 +26,7 @@ class ProductController extends AbstractController
                 'message' => "Id must be an integer."
             ]);
             
-            $product = Product::findFirst($id);
+            $product = ProductModel::findFirst($id);
         }
         
         if (! empty($product)) { // result in DB
@@ -62,7 +62,7 @@ class ProductController extends AbstractController
 
         $this->validateMandatoryInput($body);
         
-        $product = new Product();
+        $product = new ProductModel();
         $this->setReference($product);
         $product->assign($body);
         
@@ -113,7 +113,7 @@ class ProductController extends AbstractController
         $this->validateMandatoryInput($body);
         
         // check if exists
-        $product = Product::findFirst($id);
+        $product = ProductModel::findFirst($id);
         
         if (empty($product)) {
             throw new ApiException("Not found",404);
@@ -156,7 +156,7 @@ class ProductController extends AbstractController
             'message' => "Id must be an integer."
         ]);
         
-        $product = Product::findFirst($id);
+        $product = ProductModel::findFirst($id);
         
         if (empty($product)) {
             throw new ApiException("Not found",404);

@@ -17,7 +17,7 @@ class ProviderController extends AbstractController
     public function get($id = null)
     {
         if (is_null($id)) { // no id passed => list
-            $result = Provider::find();
+            $result = ProviderModel::find();
             $provider = $result->toArray();
         } else { // id passed => get one
                  // input parameters validation
@@ -25,7 +25,7 @@ class ProviderController extends AbstractController
                 'message' => "Id must be an integer."
             ]);
             
-            $provider = Provider::findFirst($id);
+            $provider = ProviderModel::findFirst($id);
         }
 
         if (! empty($provider)) { // result in DB
@@ -55,7 +55,7 @@ class ProviderController extends AbstractController
         
         $this->validateMandatoryInput($body);
         
-        $provider = new Provider();
+        $provider = new ProviderModel();
         $provider->assign($body);
         $this->setReference($provider);
    
@@ -101,7 +101,7 @@ class ProviderController extends AbstractController
         $this->validateMandatoryInput($body);
         
         //check if exists
-        $provider=Provider::findFirst($id);
+        $provider=ProviderModel::findFirst($id);
     
         if(empty($provider)){
             throw new ApiException("Not found",404);
@@ -140,7 +140,7 @@ class ProviderController extends AbstractController
             'message' => "Id must be an integer."
         ]);
         
-        $provider = Provider::findFirst($id);
+        $provider = ProviderModel::findFirst($id);
         
         if (empty($provider)) {
             throw new ApiException("Not found",404);

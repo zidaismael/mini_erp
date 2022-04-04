@@ -17,7 +17,7 @@ class CompanyController extends AbstractController
     public function get($id = null)
     {
         if (is_null($id)) { // no id passed => list
-            $result = Company::find();
+            $result = CompanyModel::find();
             $company = $result->toArray();
         } else { // id passed => get one
                  // input parameters validation
@@ -25,7 +25,7 @@ class CompanyController extends AbstractController
                 'message' => "Id must be an integer."
             ]);
             
-            $company = Company::findFirst($id);
+            $company = CompanyModel::findFirst($id);
         }
 
         if (! empty($company)) { // result in DB
@@ -55,7 +55,7 @@ class CompanyController extends AbstractController
         
         $this->validateMandatoryInput($body);
         
-        $company = new Company();
+        $company = new CompanyModel();
         $company->assign($body);
         $this->setReference($company);
         
@@ -101,7 +101,7 @@ class CompanyController extends AbstractController
         $this->validateMandatoryInput($body);
         
         //check if exists
-        $company=Company::findFirst($id);
+        $company=CompanyModel::findFirst($id);
     
         if(empty($company)){
             throw new ApiException("Not found",404);
@@ -140,7 +140,7 @@ class CompanyController extends AbstractController
             'message' => "Id must be an integer."
         ]);
         
-        $company = Company::findFirst($id);
+        $company = CompanyModel::findFirst($id);
         
         if (empty($company)) {
             throw new ApiException("Not found",404);

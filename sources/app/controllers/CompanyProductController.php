@@ -13,7 +13,7 @@ class CompanyProductController extends AbstractController
      */
     public function get(int $id)
     {
-        $company = Company::findFirst($id);
+        $company = CompanyModel::findFirst($id);
     
         if(empty($company)){
             throw new ApiException("Not found",404);
