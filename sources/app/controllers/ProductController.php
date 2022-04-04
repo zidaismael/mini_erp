@@ -177,6 +177,7 @@ class ProductController extends AbstractController
         $this->validateData('string', $body['name'], [
             'min' => 2,
             'max' => 100,
+            'messageMinimum' => "Product's name must be a string between 2 and 100 characters",
             'messageMaximum' => "Product's name must be a string between 2 and 100 characters",
             'includedMinimum' => false,
             'includedMaximum' => false

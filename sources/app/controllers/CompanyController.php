@@ -161,6 +161,7 @@ class CompanyController extends AbstractController
         $this->validateData('string', $body['name'], [
             'min' => 2,
             'max' => 100,
+            'messageMinimum' => "Company's name must be a string between 2 and 100 characters",
             'messageMaximum' => "Company's name must be a string between 2 and 100 characters",
             'includedMinimum' => false,
             'includedMaximum' => false
@@ -171,6 +172,7 @@ class CompanyController extends AbstractController
         $this->validateData('string', $body['country'], [
             'min' => 2,
             'max' => 50,
+            'messageMinimum' => "Company's country must be a string between 2 and 50 characters",
             'messageMaximum' => "Company's country must be a string between 2 and 50 characters",
             'includedMinimum' => false,
             'includedMaximum' => false

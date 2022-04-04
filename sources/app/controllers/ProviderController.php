@@ -7,7 +7,7 @@ use Exception\DuplicateModelException;
 class ProviderController extends AbstractController
 {
 
- /**
+    /**
      * Get Provider list or one provider
      *
      * @param int $id
@@ -161,6 +161,7 @@ class ProviderController extends AbstractController
         $this->validateData('string', $body['name'], [
             'min' => 2,
             'max' => 100,
+            'messageMinimum' => "Provider's name must be a string between 2 and 100 characters",
             'messageMaximum' => "Provider's name must be a string between 2 and 100 characters",
             'includedMinimum' => false,
             'includedMaximum' => false
@@ -168,6 +169,7 @@ class ProviderController extends AbstractController
         $this->validateData('string', $body['address'], [
             'min' => 2,
             'max' => 200,
+            'messageMinimum' => "Provider's address must be a string between 2 and 200 characters",
             'messageMaximum' => "Provider's address must be a string between 2 and 200 characters",
             'includedMinimum' => false,
             'includedMaximum' => false
@@ -175,6 +177,7 @@ class ProviderController extends AbstractController
         $this->validateData('string', $body['country'], [
             'min' => 2,
             'max' => 50,
+            'messageMinimum' => "Provider's country must be a string between 2 and 50 characters",
             'messageMaximum' => "Provider's country must be a string between 2 and 50 characters",
             'includedMinimum' => false,
             'includedMaximum' => false

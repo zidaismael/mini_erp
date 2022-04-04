@@ -174,6 +174,7 @@ class EmployeeController extends AbstractController
         $this->validateData('string', $body['lastname'], [
             'min' => 2,
             'max' => 50,
+            'messageMinimum' => "Employee's lastname must be a string between 2 and 50 characters",
             'messageMaximum' => "Employee's lastname must be a string between 2 and 50 characters",
             'includedMinimum' => false,
             'includedMaximum' => false
@@ -182,6 +183,7 @@ class EmployeeController extends AbstractController
         $this->validateData('string', $body['firstname'], [
             'min' => 2,
             'max' => 50,
+            'messageMinimum' => "Employee's firstname must be a string between 2 and 50 characters",
             'messageMaximum' => "Employee's firstname must be a string between 2 and 50 characters",
             'includedMinimum' => false,
             'includedMaximum' => false
@@ -194,6 +196,7 @@ class EmployeeController extends AbstractController
         $this->validateData('string', $body['country'], [
             'min' => 2,
             'max' => 50,
+            'messageMinimum' => "Employee's country must be a string between 2 and 50 characters",
             'messageMaximum' => "Employee's country must be a string between 2 and 50 characters",
             'includedMinimum' => false,
             'includedMaximum' => false

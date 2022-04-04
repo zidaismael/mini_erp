@@ -163,6 +163,7 @@ class ClientController extends AbstractController
         $this->validateData('string', $body['lastname'], [
             'min' => 2,
             'max' => 50,
+            'messageMinimum' => "Client's lastname must be a string between 2 and 50 characters",
             'messageMaximum' => "Client's lastname must be a string between 2 and 50 characters",
             'includedMinimum' => false,
             'includedMaximum' => false
@@ -170,6 +171,7 @@ class ClientController extends AbstractController
         $this->validateData('string', $body['firstname'], [
             'min' => 2,
             'max' => 50,
+            'messageMinimum' => "Client's firstname must be a string between 2 and 50 characters",
             'messageMaximum' => "Client's firstname must be a string between 2 and 50 characters",
             'includedMinimum' => false,
             'includedMaximum' => false
@@ -177,6 +179,7 @@ class ClientController extends AbstractController
         $this->validateData('string', $body['address'], [
             'min' => 2,
             'max' => 255,
+            'messageMinimum' => "Client's address must be a string between 2 and 255 characters",
             'messageMaximum' => "Client's address must be a string between 2 and 255 characters",
             'includedMinimum' => false,
             'includedMaximum' => false
@@ -184,6 +187,7 @@ class ClientController extends AbstractController
         $this->validateData('string', $body['country'], [
             'min' => 2,
             'max' => 50,
+            'messageMinimum' => "Client's country must be a string between 2 and 50 characters",
             'messageMaximum' => "Client's country must be a string between 2 and 50 characters",
             'includedMinimum' => false,
             'includedMaximum' => false
