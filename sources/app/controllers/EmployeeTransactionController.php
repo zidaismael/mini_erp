@@ -13,7 +13,7 @@ class EmployeeTransactionController extends AbstractController
      */
     public function get(int $id)
     {
-        $employee = Employee::findFirst($id);
+        $employee = EmployeeModel::findFirst($id);
     
         if(empty($employee)){
             throw new ApiException("Not found",404);
