@@ -108,27 +108,18 @@ class ErpRouter extends Collection
             'method' => ['GET']
         ],
         
-        //single
-        'company/{id}/product' =>  [
+        //business routes
+        'company/{id}/buyproducts' =>  [
             'controller' => 'CompanyProductController',
-            'method' => ['POST']
+            'method' => ['POST'],
+            'callback' => 'buyProducts'
         ],
-        'company/{id}/employee' =>  [
-            'controller' => 'CompanyEmployeeController',
-            'method' => ['POST']
-        ],
-        'provider/{id}/product' =>  [
-            'controller' => 'ProviderProductController',
-            'method' => ['POST']
-        ],
-        'client/{id}/transaction' =>  [
-            'controller' => 'ClientTransactionController',
-            'method' => ['POST']
-        ],
-        'employee/{id}/transaction' =>  [
-            'controller' => 'EmployeeTransactionController',
-            'method' => ['POST']
-        ],
+        'company/{id}/sellproducts' =>  [
+            'controller' => 'CompanyProductController',
+            'method' => ['POST'],
+            'callback' => 'sellProducts'
+        ]
+        
     ];   
     
     /**
@@ -143,9 +134,10 @@ class ErpRouter extends Collection
         foreach($erpRoutes as $path => $route){
             foreach($route['method'] as $method){
                 $calledFunctionName=strtolower($method);
+                $calledControllerMethod= $route['callback'] ?? $calledFunctionName;
   
-                if(class_exists($route['controller']) && method_exists($this, $calledFunctionName) &&  method_exists($route['controller'], $calledFunctionName)){                  
-                    $this->setHandler(new $route['controller'])->setPrefix($basePath.$path)->$calledFunctionName('', $calledFunctionName);
+                if(class_exists($route['controller']) && method_exists($this, $calledFunctionName) &&  method_exists($route['controller'], $calledControllerMethod)){                  
+                    $this->setHandler(new $route['controller'])->setPrefix($basePath.$path)->$calledFunctionName('', $calledControllerMethod);
                     $app->mount($this);
                 }
             }
