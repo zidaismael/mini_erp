@@ -3,6 +3,7 @@ use \ERP\Transaction;
 use ProductModel;
 use CompanyModel;
 use EmployeeModel;
+use ClientModel;
 use Exception\CoreException;
 use Phalcon\Mvc\Model\Transaction\Failed;
 
@@ -76,7 +77,7 @@ class TransactionModel extends AbstractModel
     {
         $this->setSchema("mini_erp");
         $this->setSource("transaction");
-        $this->hasMany('id', 'RelTransactionProduct', 'id_transaction', ['alias' => 'RelTransactionProduct']);
+        $this->hasMany('id', 'RelTransactionProduct', 'transaction_id', ['alias' => 'RelTransactionProduct']);
         $this->belongsTo('client_id', 'ClientModel', 'id', ['alias' => 'Client']);
         $this->belongsTo('employee_id', 'EmployeeModel', 'id', ['alias' => 'Employee']);
     }
@@ -212,6 +213,85 @@ class TransactionModel extends AbstractModel
             throw new CoreException($e->getMessage());
         }
         
+        return false;
+    }
+    
+    /**
+     * Save sell transaction
+     * @param \ERP\Transaction $transaction
+     * @return bool
+     */
+    public function recordSell(Transaction $transaction): bool{
+        try{
+            $databaseTransaction=$this->getTransaction();
+            $this->setTransaction($databaseTransaction);
+    
+            //create transaction
+            $this->date=$transaction->getDate()->format('Y-m-d H:i:s');
+            $this->type=$transaction->getType();
+            $this->reference=$transaction->getReference();
+    
+            $employeeModel=EmployeeModel::getByReference($transaction->getResponsible()->getReference());
+            $this->employee_id=$employeeModel->id;
+            
+            $clientModel=ClientModel::getByReference($transaction->getBuyer()->getReference());
+            $this->client_id=$clientModel->id;
+             
+            if($this->save()===false){
+                $databaseTransaction->rollback("Can't save transaction. Aborting save...");
+            }
+    
+            //update company stock
+            $companyProductId=[];
+            $companyProductList=$transaction->getSeller()->getAvailableProductList();
+            foreach($companyProductList as $product){
+                 
+                $productModel=ProductModel::getByReference($product->getReference());
+                $productModel->setTransaction($databaseTransaction);
+    
+                $productModel->stock=$product->getStock();
+                
+                $companyProductId[$productModel->reference]=(int) $productModel->id;
+                if($productModel->save()===false){
+                    $databaseTransaction->rollback("Can't update provider product. Aborting save...");
+                }
+            }
+
+            //create transaction products relations
+            $productList=$transaction->getProductList();
+            
+            foreach($productList as $product){
+                $relTransactionProduct=new RelTransactionProduct();
+                $relTransactionProduct->setTransaction($databaseTransaction);
+     
+                $relTransactionProduct->transaction_id=$this->id;
+                $relTransactionProduct->product_id=$companyProductId[$product->getExternalReference()];
+                $relTransactionProduct->product_quantity=$product->getOrderQuantity();
+                 
+                $relTransactionProduct->product_price=$product->getPrice();
+                $relTransactionProduct->product_tax=$product->getTax();
+    
+                if($relTransactionProduct->save()===false){
+                    $databaseTransaction->rollback("Can't save transaction's relation. Aborting save...");
+                }
+            }
+    
+            //update company balance
+            $companyModel=CompanyModel::getByReference($transaction->getSeller()->getReference());
+            $companyModel->setTransaction($databaseTransaction);
+            $companyModel->balance+=$transaction->getAmount();
+    
+            if($companyModel->save()===false){
+                $databaseTransaction->rollback("Can't update company balance. Aborting save...");
+            }
+    
+            $databaseTransaction->commit();
+    
+            return true;
+        }catch (Failed $e){
+            throw new CoreException($e->getMessage());
+        }
+    
         return false;
     }
 

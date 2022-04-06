@@ -5,13 +5,13 @@ use Exception\ApiException;
 use ERP\Provider;
 use ERP\Company;
 use ERP\Employee;
+use ERP\Client;
 use ERP\Factory\ProviderFactory;
 use ERP\Factory\CompanyFactory;
 use Exception\CoreException;
 use Exception\TransactionException;
-use ERP\Factory\EmployeeFactory;
-use \TransactionModel;
-use \ProductModel;
+use TransactionModel;
+use EmployeeModel;
 
 class CompanyProductController extends AbstractController
 {
@@ -40,7 +40,7 @@ class CompanyProductController extends AbstractController
         $this->validateMandatoryInput($body);
         
         $companyModel=$this->getCompany($id);
-        $employeeModel=$this->getEmployee($body['employee_reference']);
+        $employeeModel=EmployeeModel::getByReference($body['employee_reference']);
         if($employeeModel->company->id != $id){
             throw new ApiException("Employee is not given company one's.", 400);
         }
@@ -62,28 +62,56 @@ class CompanyProductController extends AbstractController
         try{
             //buy products and update database
             $transaction=$company->buyProducts($provider, $employee, $body['products']);
-            print_r($transaction); die();
         }catch(TransactionException $e){
             throw new ApiException($e->getMessage(), 403);
         }
-        
-        //save to database
-        $transactionModel=new TransactionModel();
-        if(!$transactionModel->record($transaction)){
-            throw new CoreException(sprintf("Can't save transaction: %s", json_encode($transaction->getInfo())));
-        }
+
+        $transactionModel=TransactionModel::getByReference($transaction->getReference());
+        return $this->output(200, $transactionModel); 
     }
     
     
     public function sellProducts(int $id)
     {
-        $companyModel=$this->getCompany($id);
+        //checks
         $body = $this->getBody([
             'employee_reference',
             'client_reference'
         ]);
         
         $this->validateMandatoryInput($body);
+        
+        $companyModel=$this->getCompany($id);
+        $employeeModel=EmployeeModel::getByReference($body['employee_reference']);
+        if($employeeModel->company->id != $id){
+            throw new ApiException("Employee is not given company one's.", 400);
+        }
+        
+        $clientModel=ClientModel::getByReference($body['client_reference']);
+        if(is_null($clientModel)){
+            throw new ApiException("Client not found", 404);
+        }
+        
+        $productReferenceList=array_map(function($entry){return $entry['reference'];}, $body['products']);
+        $company=CompanyFactory::build($companyModel,$productReferenceList);
+        
+        if(!$company->hasProducts()){
+            throw new ApiException("Invalid or missing provider products in list",400);
+        }
+        
+        //build company ERP object
+        $employee=new Employee($body['employee_reference']);
+        $client=new Client($body['client_reference']);
+  
+        try{
+            //sell products and update database
+            $transaction=$company->sellProducts($client, $employee, $body['products']);
+        }catch(TransactionException $e){
+            throw new ApiException($e->getMessage(), 403);
+        }
+
+        $transactionModel=TransactionModel::getByReference($transaction->getReference());
+        return $this->output(200, $transactionModel); 
     }
     
     
@@ -117,38 +145,6 @@ class CompanyProductController extends AbstractController
         }
     
         return $provider;
-    }
-    
-    /**
-     * Get client model
-     * @param string $reference
-     * @throws ApiException
-     * @return Client|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|NULL
-     */
-    protected function getClient(string $reference){
-        $client = ClientModel::findFirst(['conditions' => 'reference = :reference:' , 'bind' => ['reference'=> $reference]]);
-    
-        if(empty($client)){
-            throw new ApiException("Client not found",404);
-        }
-    
-        return $client;
-    }
-    
-    /**
-     * Get employee model
-     * @param string $reference
-     * @throws ApiException
-     * @return Client|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|NULL
-     */
-    protected function getEmployee(string $reference){
-        $employee = EmployeeModel::findFirst(['conditions' => 'reference = :reference:' , 'bind' => ['reference'=> $reference]]);
-    
-        if(empty($employee)){
-            throw new ApiException("Employee not found",404);
-        }
-    
-        return $employee;
     }
     
     /**

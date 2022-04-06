@@ -10,8 +10,9 @@ use \ERP\Transaction;
 use \ERP\Provider;
 use \ERP\Product;
 use \ERP\Employee;
-use \Exception\TransactionException;
 use TransactionModel;
+use \Exception\TransactionException;
+use \Exception\CoreException;
 
 class Company implements BuyerInterface, SellerInterface
 {
@@ -52,22 +53,82 @@ class Company implements BuyerInterface, SellerInterface
         $this->balance=$balance;
     }
     
-    public function sellProducts(BuyerInterface $buyer, array $products): ?Transaction{
+    /**
+     * Sell products
+     * @param \ERP\ERPInterface\SellerInterface $client
+     * @param \ERP\Employee $employee
+     * @param array $orderedProducts
+     * @return Transaction|null
+     */
+    public function sellProducts(BuyerInterface $client, Employee $employee, array $orderedProducts): ?Transaction{
+        $amount=0;
+  
+        foreach($orderedProducts as $order){
+            if(!array_key_exists($order['reference'], $this->getAvailableProductList())){
+                throw new TransactionException(sprintf("No product reference %s available for company", $order['reference']));
+            }
+            
+            $product=$this->getAvailableProductList()[$order['reference']];
+            
+            //check price and tax set 
+            if($product->getPrice() === null){
+                throw new TransactionException(sprintf("Can't continue sell because of product price and/or tax unavailable %s", $product->getReference()));
+            }
+  
+            //check stocks
+            if(!$this->hasEnoughtStock($order['reference'], $order['quantity'])){
+                throw new TransactionException(sprintf("Not enougth product %s quantity %d to proceed sell.", $product->getReference(), $product->getStock()));
+            }
+
+            $amount+= $product->getPrice()*$order['quantity'];
+        }
+       
         
+        //update stocks
+        foreach($orderedProducts as $order){
+        
+            //decrease provider ones
+            $companyProduct=$this->getProduct($order['reference']);
+            if(!is_null($companyProduct->getStock())){
+                $companyProduct->setStock($companyProduct->getStock()-$order['quantity']);
+            }
+        
+            $this->setProduct($companyProduct);
+        
+            //create client products
+            $product=ProductFactory::build(['reference'=> null, 'external_reference' => $order['reference'], 'name' => $companyProduct->getName(), 'stock' => $order['quantity']]);
+            $client->addBoughtProduct($this, $client, $order);
+        }
+        
+        //increase money
+        $this->balance+=$amount;
+        
+        //database records
+        $transaction=new Transaction($employee, $this, $client);
+   
+        $transactionModel=new TransactionModel();
+        $transactionModel->recordSell($transaction);
+        return $transaction;
     }
         
     /**
-     * 
+     * Buy products 
+     * @param \ERP\ERPInterface\SellerInterface $provider
+     * @param \ERP\Employee $employee
+     * @param array $orderedProducts
+     * @return Transaction|null
      */
     public function buyProducts(SellerInterface $provider, Employee $employee, array $orderedProducts): ?Transaction{
-
         $amount=0;
         foreach($orderedProducts as $order){
            
+            if(!array_key_exists($order['reference'], $provider->getAvailableProductList())){
+                throw new TransactionException(sprintf("No product reference %s available for provider", $order['reference']));
+            }
             $product=$provider->getAvailableProductList()[$order['reference']];
             
             //check stocks
-            if(!$provider->hasEnougthStock($order['reference'], $order['quantity'])){
+            if(!$provider->hasEnoughtStock($order['reference'], $order['quantity'])){
                 throw new TransactionException(sprintf("Not enougth product %s quantity %d to proceed supply.", $product->getReference(), $product->getStock()));
             }
 
@@ -123,16 +184,15 @@ class Company implements BuyerInterface, SellerInterface
      */
     public function addBoughtProduct(SellerInterface $provider, BuyerInterface $company, array $orderedProduct){
 
-        //constuct order product according to company product 
+        //constuct order product
         $product=$company->getProduct($orderedProduct['reference'], true);
+        $providerProduct=$provider->getProduct($orderedProduct['reference']);
         
         $boughtProduct= clone $product;
         
         if(empty($boughtProduct)){//create new one
             $boughtProduct=ProductFactory::build(['reference'=> null, 'external_reference' => $orderedProduct['reference'], 'name' => $providerProduct->getName(), 'quantity' => $orderedProduct['quantity']]);
         }
-        
-        $providerProduct=$provider->getProduct($orderedProduct['reference']);
         
         //update with order values
         $boughtProduct->setPrice($providerProduct->getPrice())
@@ -154,14 +214,24 @@ class Company implements BuyerInterface, SellerInterface
         return $this->balance >= $total;
     }
     
-    /**
-     * Has company enougth product stock
-     * @param string $productReference
-     * @param int $requiredQuantity
+/**
+     * Has provider enought stock
+     * @param float $total
      * @return bool
      */
-    public function hasEnougthStock(string $productReference, int $requiredQuantity): bool{
-        return $product->getStock() >= $requiredQuantity;
+    public function hasEnoughtStock(string $productReference, int $requiredQuantity): bool{
+        $product=array_filter($this->availableProductList, function($entry) use ($productReference){return $entry->getReference() == $productReference;});
+        if(empty($product)){
+            throw new CoreException(sprintf("No product reference available for company %s, %s", $this->reference, $productReference));
+        }
+        
+        $product=array_pop($product);
+        
+        if(is_null($product->getStock())){
+            return true;
+        }else{
+            return $product->getStock() >= $requiredQuantity;
+        }
     }
 
     /**
@@ -180,6 +250,20 @@ class Company implements BuyerInterface, SellerInterface
      */
     public function hasProducts():bool{
         return !empty($this->availableProductList);
+    }
+    
+    /**
+     * Set product in list
+     * @param string $productReference
+     * @throw \Exception\CoreException
+     */
+    public function setProduct(Product $product){
+        $productReference=$product->getReference();
+        if(!array_key_exists($productReference,$this->availableProductList)){
+            throw new CoreException(sprintf("Provider product not found %s",$productReference));
+        }
+    
+        $this->availableProductList[$productReference]=$product;
     }
     
     /**

@@ -106,11 +106,11 @@ class Product
         return $this->name;
     }
     
-    public function getPrice(): float{
+    public function getPrice(): ?float{
         return $this->price;
     }
     
-    public function getTax(): float{
+    public function getTax(): ?float{
         return $this->tax;
     }
     

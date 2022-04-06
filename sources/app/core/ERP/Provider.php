@@ -44,11 +44,11 @@ class Provider implements SellerInterface
     }
     
     /**
-     * Has company enougth money
+     * Has provider enought stock
      * @param float $total
      * @return bool
      */
-    public function hasEnougthStock(string $productReference, int $requiredQuantity): bool{
+    public function hasEnoughtStock(string $productReference, int $requiredQuantity): bool{
         $product=array_filter($this->availableProductList, function($entry) use ($productReference){return $entry->getReference() == $productReference;});
         if(empty($product)){
             throw new CoreException(sprintf("No product reference available for provider %s, %s", $this->reference, $productReference));
