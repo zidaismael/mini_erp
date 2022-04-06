@@ -100,12 +100,24 @@ class ErpRouter extends Collection
             'method' => ['GET']
         ],
         'client/{id}/transactions' =>  [
-            'controller' => 'ClientTransactionController',
-            'method' => ['GET']
+            'controller' => 'TransactionController',
+            'method' => ['GET'],
+            'callback' => 'getByClient'
         ],
         'employee/{id}/transactions' =>  [
-            'controller' => 'EmployeeTransactionController',
-            'method' => ['GET']
+            'controller' => 'TransactionController',
+            'method' => ['GET'],
+            'callback' => 'getByEmployee'
+        ],
+        'company/{id}/transactions' =>  [
+            'controller' => 'TransactionController',
+            'method' => ['GET'],
+            'callback' => 'getByCompany'
+        ],
+        'provider/{id}/transactions' =>  [
+            'controller' => 'TransactionController',
+            'method' => ['GET'],
+            'callback' => 'getByProvider'
         ],
         
         //business routes
