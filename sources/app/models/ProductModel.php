@@ -93,6 +93,20 @@ class ProductModel extends AbstractModel
         return parent::findFirst($parameters);
     }
 
+    /**
+     * Get product by reference
+     * @param string $reference
+     * @param bool $useExternal use external reference column (default false)
+     * @return Product|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     */
+    public static function getByReference(string $reference, bool $useExternal=false): ?\Phalcon\Mvc\ModelInterface{
+        $columnName = $useExternal===true ? 'external_reference' : 'reference';
+        return parent::findFirst([
+            'conditions' => "$columnName = :reference:",
+            'bind' => [$columnName=> $reference]
+        ]);
+    }
+
     
     /**
      * Get owner products by product references

@@ -1,32 +1,37 @@
 <?php
 
-class RoleModel extends AbstractModel
+class RelTransactionProduct extends AbstractModel
 {
 
     /**
      *
      * @var integer
      */
-    protected $id;
+    public $transaction_id;
 
     /**
      *
-     * @var string
+     * @var integer
      */
-    protected $name;
+    public $product_id;
 
     /**
      *
-     * @var string
+     * @var integer
      */
-    protected $access_type;
-    
-    public function columnMap()
-    {
-        return [
-            'access_type'  => 'accessType',
-        ];
-    }
+    public $product_quantity;
+
+    /**
+     *
+     * @var double
+     */
+    public $product_price;
+
+    /**
+     *
+     * @var double
+     */
+    public $product_tax;
 
     /**
      * Initialize method for model.
@@ -34,15 +39,16 @@ class RoleModel extends AbstractModel
     public function initialize()
     {
         $this->setSchema("mini_erp");
-        $this->setSource("role");
-        $this->hasMany('id', 'UserModel', 'id', ['alias' => 'User']);
+        $this->setSource("rel_transaction_product");
+        $this->belongsTo('product_id', '\Product', 'id', ['alias' => 'Product']);
+        $this->belongsTo('transaction_id', '\Transaction', 'id', ['alias' => 'Transaction']);
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Role[]|Role|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return RelTransactionProduct[]|RelTransactionProduct|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null): \Phalcon\Mvc\Model\ResultsetInterface
     {
@@ -53,23 +59,11 @@ class RoleModel extends AbstractModel
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Role|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     * @return RelTransactionProduct|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
      */
     public static function findFirst($parameters = null): ?\Phalcon\Mvc\ModelInterface
     {
         return parent::findFirst($parameters);
     }
-    
-    
-    public function getId(){
-        return (int) $this->id;
-    }
-    
-    public function getName(){
-        return (string) $this->name;
-    }
 
-    public function getAccessType(){
-        return (string) $this->accessType;
-    }
 }

@@ -112,4 +112,15 @@ class TransactionHistoryModel extends AbstractModel
         return parent::findFirst($parameters);
     }
 
+    /**
+     * Get product by reference
+     * @param string $reference
+     * @return Product|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     */
+    public static function getByReference(string $reference): ?\Phalcon\Mvc\ModelInterface{
+        return parent::findFirst([
+            'conditions' => 'reference = :reference:',
+            'bind' => ['reference'=> $reference]
+        ]);
+    }
 }

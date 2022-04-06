@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Mvc\ModelInterface;
+use Phalcon\Mvc\Model\Transaction\Manager;
 use Exception\DuplicateModelException;
 use Exception\ForeignKeyModelException;
 
@@ -57,6 +58,11 @@ class AbstractModel extends \Phalcon\Mvc\Model
         }
     }
     
+    public function getTransaction(){
+        $manager=new Manager();
+        return $manager->get();
+    }
+    
     /**
      * Handle exception to throw specific exceptions when necessary
      * @param \Exception $e
@@ -77,6 +83,5 @@ class AbstractModel extends \Phalcon\Mvc\Model
         
         throw $e;
     }
-    
 }
 
