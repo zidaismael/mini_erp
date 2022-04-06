@@ -66,7 +66,7 @@ class ProductModel extends AbstractModel
     {
         $this->setSchema("mini_erp");
         $this->setSource("product");
-        $this->hasMany('id', 'RelTransactionProduct', 'id_product', ['alias' => 'RelTransactionProduct']);
+        $this->hasMany('id', 'RelTransactionProduct', 'product_id', ['alias' => 'RelTransactionProduct']);
         $this->belongsTo('company_id', 'CompanyModel', 'id', ['alias' => 'Company']);
         $this->belongsTo('provider_id', 'ProviderModel', 'id', ['alias' => 'Provider']);
     }
