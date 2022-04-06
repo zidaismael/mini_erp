@@ -21,5 +21,78 @@ class TransactionController extends AbstractController
             return $this->output(200, $result->toArray());
         }
     }
+    
+    
+    /**
+     * Get Employee transaction list
+     *
+     * @param int $id
+     * @return \Phalcon\Http\Response
+     */
+    public function getByEmployee(int $id)
+    {
+        $employee = EmployeeModel::findFirst($id);
+    
+        if(empty($employee)){
+            throw new ApiException("Not found",404);
+        }else{
+            $result=$employee->getRelated('transaction');
+            return $this->output(200, $result->toArray());
+        }
+    }
+    
+    /**
+     * Get Company transaction list
+     *
+     * @param int $id
+     * @return \Phalcon\Http\Response
+     */
+    public function getByCompany(int $id)
+    {
+        $company = CompanyModel::findFirst($id);
+    
+        if(empty($company)){
+            throw new ApiException("Not found",404);
+        }else{
+            $result=$company->getRelated('transaction');
+            return $this->output(200, $result->toArray());
+        }
+    }
+    
+    /**
+     * Get Provider transaction list
+     *
+     * @param int $id
+     * @return \Phalcon\Http\Response
+     */
+    public function getByProvider(int $id)
+    {
+        $provider = ProviderModel::findFirst($id);
+    
+        if(empty($provider)){
+            throw new ApiException("Not found",404);
+        }else{
+            $result=$provider->getRelated('transaction');
+            return $this->output(200, $result->toArray());
+        }
+    }
+    
+    /**
+     * Get Client transaction list
+     *
+     * @param int $id
+     * @return \Phalcon\Http\Response
+     */
+    public function getByClient(int $id)
+    {
+        $client = ClientModel::findFirst($id);
+    
+        if(empty($client)){
+            throw new ApiException("Not found",404);
+        }else{
+            $result=$client->getRelated('transaction');
+            return $this->output(200, $result->toArray());
+        }
+    }
 }
 
