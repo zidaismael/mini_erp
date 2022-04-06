@@ -2,7 +2,13 @@
 declare(strict_types=1);
 
 use Exception\ApiException;
+use ERP\Provider;
 use ERP\Company;
+use ERP\Factory\ProviderFactory;
+use ERP\Factory\CompanyFactory;
+use Exception\CoreException;
+use Exception\TransactionException;
+use ERP\Factory\EmployeeFactory;
 
 class CompanyProductController extends AbstractController
 {
@@ -22,8 +28,7 @@ class CompanyProductController extends AbstractController
     
     public function buyProducts(int $id)
     {
-        $company=$this->getCompany($id);
-        
+        //checks
         $body = $this->getBody([
             'employee_reference',
             'provider_reference'
@@ -31,12 +36,33 @@ class CompanyProductController extends AbstractController
         
         $this->validateMandatoryInput($body);
         
-        $provider=$this->getProvider($id);
-        $employee=$this->getEmployee($id);
+        $companyModel=$this->getCompany($id);
+        $employeeModel=$this->getEmployee($body['employee_reference']);
+        if($employeeModel->company->id != $id){
+            throw new ApiException("Employee is not given company one's.", 400);
+        }
         
-        //business logical
+        //get provider products states
+        $providerModel=$this->getProvider($body['provider_reference']);
+        $productReferenceList=array_map(function($entry){return $entry['reference'];}, $body['products']);
         
+        //build provider ERP object
+        $provider=ProviderFactory::build($providerModel,$productReferenceList);
+        if(!$provider->hasProducts()){
+            throw new ApiException("Invalid or missing provider products in list",400);
+        }
+       
+        //build company ERP object
+        $company=CompanyFactory::build($companyModel, $productReferenceList, true);
+        $employee=EmployeeFactory::build($employeeModel);
         
+        try{
+            //buy products and update database
+            $transaction=$company->buyProducts($provider, $employee, $body['products']);
+            print_r($transaction);
+        }catch(TransactionException $e){
+            throw new ApiException($e->getMessage(), 403);
+        }
     }
     
     
@@ -49,9 +75,6 @@ class CompanyProductController extends AbstractController
         ]);
         
         $this->validateMandatoryInput($body);
-        
-        $company=new Company($companyModel->reference, $companyModel->balance);
-        var_dump($company);
     }
     
     
@@ -73,12 +96,12 @@ class CompanyProductController extends AbstractController
     
     /**
      * Get provider model
-     * @param int $id
+     * @param string $reference
      * @throws ApiException
      * @return Provider|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|NULL
      */
-    protected function getProvider(int $id){
-        $provider = ProviderModel::findFirst($id);
+    protected function getProvider(string $reference){
+        $provider = ProviderModel::findFirst(['conditions' => 'reference = :reference:' , 'bind' => ['reference'=> $reference]]);
     
         if(empty($provider)){
             throw new ApiException("Provider not found",404);
@@ -89,12 +112,12 @@ class CompanyProductController extends AbstractController
     
     /**
      * Get client model
-     * @param int $id
+     * @param string $reference
      * @throws ApiException
      * @return Client|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|NULL
      */
-    protected function getClient(int $id){
-        $client = ClientModel::findFirst($id);
+    protected function getClient(string $reference){
+        $client = ClientModel::findFirst(['conditions' => 'reference = :reference:' , 'bind' => ['reference'=> $reference]]);
     
         if(empty($client)){
             throw new ApiException("Client not found",404);
@@ -105,12 +128,12 @@ class CompanyProductController extends AbstractController
     
     /**
      * Get employee model
-     * @param int $id
+     * @param string $reference
      * @throws ApiException
      * @return Client|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|NULL
      */
-    protected function getEmployee(int $id){
-        $employee = EmployeeModel::findFirst($id);
+    protected function getEmployee(string $reference){
+        $employee = EmployeeModel::findFirst(['conditions' => 'reference = :reference:' , 'bind' => ['reference'=> $reference]]);
     
         if(empty($employee)){
             throw new ApiException("Employee not found",404);
@@ -118,7 +141,6 @@ class CompanyProductController extends AbstractController
     
         return $employee;
     }
-    
     
     /**
      * Validate input
