@@ -63,8 +63,8 @@ class ProductController extends AbstractController
         $this->validateMandatoryInput($body);
         
         $product = new ProductModel();
-        $this->setReference($product);
         $product->assign($body);
+        $this->setReference($product);
         
         try {
             if ($product->create()) {
@@ -218,7 +218,6 @@ class ProductController extends AbstractController
     protected function setReference(\Phalcon\Mvc\Model $product)
     {
         $prefix= isset($product->company_id) ? "PRD" : "PRD_PRV";
-        
         $product->reference = sprintf("%s_%d",$prefix, random_int(0, 999999999));
     }
 }
