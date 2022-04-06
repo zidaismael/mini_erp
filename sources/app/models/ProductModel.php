@@ -1,5 +1,7 @@
 <?php
 
+use \Exception\CoreException;
+
 class ProductModel extends AbstractModel
 {
 
@@ -14,6 +16,12 @@ class ProductModel extends AbstractModel
      * @var string
      */
     public $reference;
+    
+    /**
+     *
+     * @var string
+     */
+    public $external_reference;
 
     /**
      *
@@ -85,4 +93,37 @@ class ProductModel extends AbstractModel
         return parent::findFirst($parameters);
     }
 
+    
+    /**
+     * Get owner products by product references
+     * @param string $ownerType Provider or Company
+     * @param int $ownerId Provider or Company Id
+     * @param array $searchValues
+     * @param bool $useExternal use external reference column (default false)
+     * @throws CoreException
+     * @return Products|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|NULL
+     */
+    public static function getProductsByReferences(string $ownerType, int $ownerId, array $searchValues, bool $useExternal=false){
+    
+        $ownerType=strtolower($ownerType);
+    
+        if(!in_array($ownerType,['provider','company'])){
+            throw new CoreException("Parameters must only be provider or company");
+        }
+    
+        if($ownerId<1){
+            return null;
+        }
+         
+        $columnName = $useExternal===true ? 'external_reference' : 'reference';
+        $condition=sprintf("%s_id = :ownerId: AND %s IN ({%s:array})", $ownerType, $columnName, $columnName);
+        $productList = ProductModel::find(['conditions' => $condition, 'bind' => ['ownerId'=> $ownerId, $columnName => $searchValues]]);
+        $result=$productList->toArray();
+        if(empty($result)){
+            throw new CoreException(sprintf("Invalid products reference(s). Search in '%s' column.",$columnName));
+        }
+    
+        return $productList;
+    }
+    
 }
