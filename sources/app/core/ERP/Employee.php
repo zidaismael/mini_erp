@@ -39,5 +39,9 @@ class Employee
     public function setManagedTransactionList(array $transactionList){
         $this->transactionList=$transactionList;
     }
+    
+    public function getReference(): string{
+        return $this->reference;
+    }
 }
 

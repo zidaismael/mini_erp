@@ -11,6 +11,7 @@ use \ERP\Provider;
 use \ERP\Product;
 use \ERP\Employee;
 use \Exception\TransactionException;
+use TransactionModel;
 
 class Company implements BuyerInterface, SellerInterface
 {
@@ -51,13 +52,13 @@ class Company implements BuyerInterface, SellerInterface
         $this->balance=$balance;
     }
     
-    public function setResponsible(Employee $employee, Transaction $transaction): bool{
-    }
-    
     public function sellProducts(BuyerInterface $buyer, array $products): ?Transaction{
         
     }
         
+    /**
+     * 
+     */
     public function buyProducts(SellerInterface $provider, Employee $employee, array $orderedProducts): ?Transaction{
 
         $amount=0;
@@ -78,8 +79,18 @@ class Company implements BuyerInterface, SellerInterface
             throw new TransactionException("Company doesn't have enought money to proceed supply.");
         }
         
-        //increase stocks
+        //update stocks
         foreach($orderedProducts as $order){ 
+            
+            //decrease provider ones
+            $providerProduct=$provider->getProduct($order['reference']);
+            if(!is_null($providerProduct->getStock())){ 
+                $providerProduct->setStock($providerProduct->getStock()-$order['quantity']);
+            }
+            
+            $provider->setProduct($providerProduct);
+            
+            //increase company ones
             if($this->hasProduct($order['reference'], true)){
                 //retrieve existing product
                 $product=array_filter($this->availableProductList,function($entry) use ($order){ return $entry->getExternalReference() == $order['reference']; });
@@ -89,10 +100,7 @@ class Company implements BuyerInterface, SellerInterface
                 $product->setStock(($product->getStock()+$order['quantity']));
                 $this->availableProductList[$product->getReference()]=$product;
 
-            }else{
-                $providerProduct=$provider->getProduct($order['reference']);
-                
-                //add new one
+            }else{//add new one
                 $product=ProductFactory::build(['reference'=> null, 'external_reference' => $order['reference'], 'name' => $providerProduct->getName(), 'stock' => $order['quantity']]);
                 $this->availableProductList[]=$product;
             }  
@@ -104,31 +112,35 @@ class Company implements BuyerInterface, SellerInterface
         $this->balance-=$amount;
         
         //database records
-        
-        $transaction=new Transaction(null, $employee, $provider, $this);
-        
-        echo '<pre>';
-        print_r($transaction);
-        
-        return null;
+        $transaction=new Transaction($employee, $provider, $this);
+        $transactionModel=new TransactionModel();
+        $transactionModel->recordSupply($transaction);
+        return $transaction;
     }
     
     /**
      * Populate bought product list
      */
-    public function addBoughtProduct(SellerInterface $provider, BuyerInterface $company, array $orderedProducts){
+    public function addBoughtProduct(SellerInterface $provider, BuyerInterface $company, array $orderedProduct){
 
-        $boughtProduct=$company->getProduct($orderedProducts['reference'], true);
-        if(empty($boughtProduct)){
-            $boughtProduct=ProductFactory::build(['reference'=> null, 'external_reference' => $orderedProducts['reference'], 'name' => $providerProduct->getName(), 'stock' => $orderedProducts['quantity']]);
+        //constuct order product according to company product 
+        $product=$company->getProduct($orderedProduct['reference'], true);
+        
+        $boughtProduct= clone $product;
+        
+        if(empty($boughtProduct)){//create new one
+            $boughtProduct=ProductFactory::build(['reference'=> null, 'external_reference' => $orderedProduct['reference'], 'name' => $providerProduct->getName(), 'quantity' => $orderedProduct['quantity']]);
         }
         
-        $providerProduct=$provider->getProduct($orderedProducts['reference']);
+        $providerProduct=$provider->getProduct($orderedProduct['reference']);
         
+        //update with order values
         $boughtProduct->setPrice($providerProduct->getPrice())
             ->setTax($providerProduct->getTax())
-            ->setExternalReference($orderedProducts['reference'])
-            ->setStock($orderedProducts['quantity']);
+            ->setExternalReference($orderedProduct['reference'])
+            ->setOrderQuantity($orderedProduct['quantity'])
+            //in this case stock info isn't appropriate
+            ->setStock(null);
         
         $this->boughtProductList[]=$boughtProduct;
     }

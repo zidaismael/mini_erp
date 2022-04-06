@@ -16,11 +16,15 @@ class ProductFactory
         $tax = $productData['tax'] ?? null;
         $product=new Product($reference, $productData['name'], $price, $tax);
    
-        if(!is_null($productData['stock'])){
+        if(isset($productData['stock']) && !is_null($productData['stock'])){
             $product->setStock($productData['stock']);
         }
         
-        if(!is_null($productData['external_reference'])){
+        if(isset($productData['quantity']) && !is_null($productData['quantity'])){
+            $product->setOrderQuantity($productData['quantity']);
+        }
+        
+        if(!empty($productData['external_reference'])){
             $product->setExternalReference($productData['external_reference']);
         }
         

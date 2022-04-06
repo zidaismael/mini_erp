@@ -4,11 +4,14 @@ declare(strict_types=1);
 use Exception\ApiException;
 use ERP\Provider;
 use ERP\Company;
+use ERP\Employee;
 use ERP\Factory\ProviderFactory;
 use ERP\Factory\CompanyFactory;
 use Exception\CoreException;
 use Exception\TransactionException;
 use ERP\Factory\EmployeeFactory;
+use \TransactionModel;
+use \ProductModel;
 
 class CompanyProductController extends AbstractController
 {
@@ -54,14 +57,20 @@ class CompanyProductController extends AbstractController
        
         //build company ERP object
         $company=CompanyFactory::build($companyModel, $productReferenceList, true);
-        $employee=EmployeeFactory::build($employeeModel);
+        $employee=new Employee($body['employee_reference']);
         
         try{
             //buy products and update database
             $transaction=$company->buyProducts($provider, $employee, $body['products']);
-            print_r($transaction);
+            print_r($transaction); die();
         }catch(TransactionException $e){
             throw new ApiException($e->getMessage(), 403);
+        }
+        
+        //save to database
+        $transactionModel=new TransactionModel();
+        if(!$transactionModel->record($transaction)){
+            throw new CoreException(sprintf("Can't save transaction: %s", json_encode($transaction->getInfo())));
         }
     }
     

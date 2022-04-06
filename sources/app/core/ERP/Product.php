@@ -33,9 +33,14 @@ class Product
     protected $tax;
     
     /**
-     * @var int $stock | default -1
+     * @var int|null $orderQuantity
      */
-    protected int $stock= -1;
+    protected $orderQuantity;
+    
+    /**
+     * @var int|null $stock
+     */
+    protected $stock;
     
     
     /**
@@ -65,8 +70,20 @@ class Product
         }    
     }
     
-    public function setStock(int $stock){
+    /**
+     * Generate product reference
+     */
+    public function generateReference(): string{
+        return sprintf("PRD_%d", random_int(0, 999999999));
+    }
+    
+    public function setStock($stock){
         $this->stock=$stock;
+        return $this;
+    }
+    
+    public function setOrderQuantity(int $quantity){
+        $this->orderQuantity=$quantity;
         return $this;
     }
     
@@ -101,12 +118,18 @@ class Product
         return $this->stock;
     }
     
-    public function getReference(): string{
+    public function getOrderQuantity(): ?int{
+        return $this->orderQuantity;
+    }
+    
+    public function getReference(): ?string{
         return $this->reference;
     }
     
     public function getExternalReference(): string{
         return $this->externalReference;
     }
+    
+    
 }
 

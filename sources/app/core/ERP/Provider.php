@@ -56,11 +56,25 @@ class Provider implements SellerInterface
         
         $product=array_pop($product);
         
-        if($product->getStock()===-1){
+        if(is_null($product->getStock())){
             return true;
         }else{
             return $product->getStock() >= $requiredQuantity;
         }
+    }
+    
+    /**
+     * Set product in list
+     * @param string $productReference
+     * @throw \Exception\CoreException
+     */
+    public function setProduct(Product $product){
+        $productReference=$product->getReference();
+        if(!array_key_exists($productReference,$this->availableProductList)){
+            throw new CoreException(sprintf("Provider product not found %s",$productReference));
+        }
+        
+        $this->availableProductList[$productReference]=$product;
     }
     
     public function setAvailableProductList(array $products){
