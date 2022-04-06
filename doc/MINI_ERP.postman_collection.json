@@ -1,0 +1,1379 @@
+{
+	"info": {
+		"_postman_id": "eacf1128-bf79-4755-aa39-2d0ee55fa440",
+		"name": "MINI_ERP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CLIENT",
+			"item": [
+				{
+					"name": "LIST CLIENTS",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.1.39/api/clients",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET CLIENT",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.1.39/api/client/1",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"client",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE CLIENT",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lastname\": \"fdsf\",\r\n    \"firstname\": \"fdf\",\r\n    \"address\": \"dfdf\",\r\n    \"country\": \"fdff\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.39/api/client",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE CLIENT",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reference\": \"izidaggsgb\",\r\n    \"lastname\": \"fdsf\",\r\n    \"firstname\": \"fdf\",\r\n    \"address\": \"dfdf\",\r\n    \"country\": \"fdff\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.39/api/client/2",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"client",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE CLIENT",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.39/api/client/1",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"client",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIST CLIENT TRANSACTIONS",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.1.39/api/client/56/transactions",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"client",
+								"56",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EMPLOYEE",
+			"item": [
+				{
+					"name": "LIST EMPLOYEES",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.1.39/api/employees",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET EMPLOYEE",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.1.39/api/employee/1",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"employee",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE EMPLOYEE",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lastname\": \"bbbbbbbbbbbbbbbbb\",\r\n    \"firstname\": \"fdssdsdsdf\",\r\n    \"country\":\"sfsdfdf\",\r\n    \"contract_date\": \"2021-01-01\",\r\n    \"company_id\": 14\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.39/api/employee",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"employee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE EMPLOYEE",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lastname\": \"aaaaaaaaaaaaaaa\",\r\n    \"firstname\": \"fdssdsdsdf\",\r\n    \"country\":\"sfsdfdf\", \r\n    \"birthday\": \"2021-01-02\",\r\n    \"contract_date\": \"2021-01-03\",\r\n    \"company_id\": 14\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.39/api/employee/35",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"employee",
+								"35"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE EMPLOYEE",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.39/api/employee/37",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"employee",
+								"37"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIST EMPLOYEE TRANSACTIONS",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.1.39/api/employee/38/transactions",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"employee",
+								"38",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "COMPANY",
+			"item": [
+				{
+					"name": "LIST COMPANIES",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.1.39/api/companies",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"companies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET COMPANY",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.1.39/api/company/1",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"company",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE COMPANY",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"fdssdsdsdf\",\r\n    \"balance\": 6.9,\r\n    \"country\": \"fdff\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.39/api/company",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE COMPANY",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reference\": \"izidaggsOOO\",\r\n    \"name\": \"fdsf\",\r\n    \"balance\": 6.9,\r\n    \"country\": \"fdff\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.39/api/company/1",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"company",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE COMPANY",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.39/api/company/9",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"company",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIST COMPANY EMPLOYEES",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.1.39/api/company/14/employees",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"company",
+								"14",
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIST COMPANY PRODUCTS",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.1.39/api/company/14/products",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"company",
+								"14",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BUY COMPANY PRODUCTS",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"provider_reference\": \"PRV_175838822\",\r\n    \"employee_reference\": \"EMP_640738211\",\r\n    \"products\":[\r\n        {\r\n            \"reference\" : \"PRD_PRV_206199867\",\r\n            \"quantity\": 10\r\n        },\r\n         {\r\n            \"reference\" : \"PRD_PRV_88551222\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.39/api/company/14/buyproducts",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"company",
+								"14",
+								"buyproducts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SELL COMPANY PRODUCTS",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"client_reference\": \"izidaggsg2\",\r\n    \"employee_reference\": \"EMP_640738211\",\r\n    \"products\":[\r\n        {\r\n            \"reference\" : \"PRD_236786758\",\r\n            \"quantity\": 9\r\n        },\r\n         {\r\n            \"reference\" : \"PRD_522495749\",\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.39/api/company/14/sellproducts",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"company",
+								"14",
+								"sellproducts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIST COMPANY TRANSACTION",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.1.39/api/company/14/transactions",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"company",
+								"14",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PROVIDER",
+			"item": [
+				{
+					"name": "LIST PROVIDERS",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.1.39/api/providers",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"providers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET PROVIDER",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.1.39/api/provider/1",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"provider",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE PROVIDER",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"fdssdsdsdf\",\r\n    \"address\": \"106 avsodifjoij oiodsds\",\r\n    \"country\": \"fdff\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.39/api/provider",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"provider"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE PROVIDER",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"fdssdsdsdf\",\r\n    \"address\": \"10 avsodifjoij oiodsds\",\r\n    \"country\": \"fdff\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.39/api/provider/1",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"provider",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE PROVIDER",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.39/api/provider/4",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"provider",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIST PROVIDER PRODUCTS",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.1.39/api/provider/1/products",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"provider",
+								"1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PRODUCT",
+			"item": [
+				{
+					"name": "GET PRODUCT",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.1.39/api/product/22",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"product",
+								"22"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE PRODUCT",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"serviette de bain\",\r\n    \"price\": 1.6,\r\n    \"tax\": 8.6,\r\n    \"stock\": 67,\r\n    \"provider_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.39/api/product",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE PRODUCT",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"serviettes de bain\",\r\n    \"price\": 4.6,\r\n    \"tax\": 10,\r\n    \"stock\": 67,\r\n    \"provider_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.39/api/product/22",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"product",
+								"22"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE PRODUCT",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.39/api/product/23",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"product",
+								"23"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TRANSACTION",
+			"item": [
+				{
+					"name": "GET TRANSACTION",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"connection": true,
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://192.168.1.39/api/transaction/16",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"39"
+							],
+							"path": [
+								"api",
+								"transaction",
+								"16"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
