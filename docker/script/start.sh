@@ -10,3 +10,6 @@ composer update
 
 #apache2 start
 service apache2 restart
+
+#init database
+/data/database/database_init.sh
