@@ -1,6 +1,7 @@
 <?php
 declare(strict_types = 1);
 
+use Logger\LogHelper;
 use Exception\ApiException;
 use Exception\DuplicateModelException;
 use Exception\ForeignKeyModelException;
@@ -71,20 +72,16 @@ class ProductController extends AbstractController
                 $result = $product->findFirst($product->id);
                 return $this->output(201, $result);
             } else {
-                // @todo log
                 throw new ApiException(sprintf("An error occured on product creation: %s", json_encode($body)));
             }
         } catch (ForeignKeyModelException $e) {
-            // @todo log
-            var_dump($e->getMessage());
+            LogHelper::error($e->getMessage());
             throw new ApiException(sprintf("One or more object's relations can't be create. Please check your object values.", json_encode($body)), 400);
         } catch (DuplicateModelException $e) {
-            // @todo log
-            var_dump($e->getMessage());
+            LogHelper::error($e->getMessage());
             throw new ApiException(sprintf("Unique information have been duplicate: %s \nbody: %s", $e->getSubject(), json_encode($body)), 409);
         } catch (\Exception $e) {
-            // @todo log
-            var_dump($e->getMessage());
+            LogHelper::error($e->getMessage());
             throw new ApiException(sprintf("An error occured on product creation: %s", json_encode($body)));
         }
     }
@@ -129,17 +126,14 @@ class ProductController extends AbstractController
                 // @todo log
                 throw new ApiException(sprintf("An error occured on product update: %s", json_encode($body)));
             }
-        } catch (ForeignKeyeModelException $e) {
-            // @todo log
-            var_dump($e->getMessage());
+        } catch (ForeignKeyModelException $e) {
+            LogHelper::error($e->getMessage());
             throw new ApiException(sprintf("Unique information have been duplicate: %s \nbody: %s", $e->getSubject(), json_encode($body)), 400);
         } catch (DuplicateModelException $e) {
-            // @todo log
-            var_dump($e->getMessage());
+            LogHelper::error($e->getMessage());
             throw new ApiException(sprintf("Unique information have been duplicate: %s \nbody: %s", $e->getSubject(), json_encode($body)), 409);
         } catch (\Exception $e) {
-            // @todo log
-            var_dump($e->getMessage());
+            LogHelper::error($e->getMessage());
             throw new ApiException(sprintf("An error occured on product creation: %s", json_encode($body)));
         }
     }

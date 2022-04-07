@@ -54,8 +54,21 @@ class TransactionController extends AbstractController
         if(empty($company)){
             throw new ApiException("Not found",404);
         }else{
-            $result=$company->getRelated('transaction');
-            return $this->output(200, $result->toArray());
+            $employees=$company->getRelated('Employee');
+            if(empty($employees)){
+                return $this->output(200,[]);
+            }else{
+                $transactions=[];
+                
+                foreach($employees as $employee){
+                    $transactions=TransactionModel::find([
+                        'conditions' => 'employee_id = :id:',
+                        'bind' => ['id' => $employee->id]
+                    ]);
+                }
+            
+                return $this->output(200, $transactions->toArray());
+            }
         }
     }
     

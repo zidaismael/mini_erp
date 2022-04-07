@@ -21,5 +21,8 @@ return new \Phalcon\Config([
        // 'viewsDir'       => APP_PATH . '/views/',
         'cacheDir'       => BASE_PATH . '/cache/',
         'baseUri'        => '/api/',
+        'log'        => [
+            'path' => '/data/log/mini_erp.log'
+        ]
     ]
 ]);

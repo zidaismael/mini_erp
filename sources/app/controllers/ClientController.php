@@ -1,6 +1,7 @@
 <?php
 declare(strict_types = 1);
 
+use Logger\LogHelper;
 use Exception\ApiException;
 use Exception\DuplicateModelException;
 
@@ -65,16 +66,13 @@ class ClientController extends AbstractController
                 $result = $client->findFirst($client->id);
                 return $this->output(201, $result);
             } else {
-                // @todo log
                 throw new ApiException(sprintf("An error occured on client creation: %s", json_encode($body)));
             }
         } catch (DuplicateModelException $e) {
-            // @todo log
-            var_dump($e->getMessage());
+            LogHelper::error($e->getMessage());
             throw new ApiException(sprintf("Unique information have been duplicate: %s \nbody: %s", $e->getSubject(), json_encode($body)), 409);
         } catch (\Exception $e) {
-            // @todo log
-            var_dump($e->getMessage());
+            LogHelper::error($e->getMessage());
             throw new ApiException(sprintf("An error occured on client creation: %s", json_encode($body)));
         }
     }
@@ -120,12 +118,10 @@ class ClientController extends AbstractController
                 throw new ApiException(sprintf("An error occured on client update: %s", json_encode($body)));
             }
         } catch (DuplicateModelException $e) {
-            // @todo log
-            var_dump($e->getMessage());
+            LogHelper::error($e->getMessage());
             throw new ApiException(sprintf("Unique information have been duplicate: %s \nbody: %s", $e->getSubject(), json_encode($body)), 409);
         } catch (\Exception $e) {
-            // @todo log
-            var_dump($e->getMessage());
+            LogHelper::error($e->getMessage());
             throw new ApiException(sprintf("An error occured on client creation: %s", json_encode($body)));
         }
     }
