@@ -4,18 +4,18 @@ declare(strict_types = 1);
 use Logger\LogHelper;
 use Exception\ApiException;
 use Exception\DuplicateModelException;
+use \Phalcon\Http\Response;
 
 class ClientController extends AbstractController
 {
 
-     /**
+    /**
      * Get Client list or one client
      *
-     * @param int $id
-     *            default null, if null => list else get one
+     * @param int $id default null, if null => list else get one
      * @return \Phalcon\Http\Response
      */
-    public function get($id = null)
+    public function get($id = null): Response
     {
         if (is_null($id)) { // no id passed => list
             $result = ClientModel::find();
@@ -28,14 +28,14 @@ class ClientController extends AbstractController
             
             $client = ClientModel::findFirst($id);
         }
-
+        
         if (! empty($client)) { // result in DB
             return $this->output(200, $client);
         } else { // no result
             if (is_null($id)) {
                 return $this->output(200, []);
             } else {
-                throw new ApiException("Not found",404);
+                throw new ApiException("Not found", 404);
             }
         }
     }
@@ -45,7 +45,7 @@ class ClientController extends AbstractController
      *
      * @return \Phalcon\Http\Response
      */
-    public function post()
+    public function post(): Response
     {
         // get body and check mandatory input parameters validation
         $body = $this->getBody([
@@ -82,7 +82,7 @@ class ClientController extends AbstractController
      *
      * @param int $id            
      */
-    public function put(int $id)
+    public function put(int $id): Response
     {
         
         // get body and check mandatory input parameters validation
@@ -100,13 +100,13 @@ class ClientController extends AbstractController
         
         $this->validateMandatoryInput($body);
         
-        //check if exists
-        $client=ClientModel::findFirst($id);
-    
-        if(empty($client)){
-            throw new ApiException("Not found",404);
+        // check if exists
+        $client = ClientModel::findFirst($id);
+        
+        if (empty($client)) {
+            throw new ApiException("Not found", 404);
         }
-
+        
         $client->assign($body);
         
         try {
@@ -114,7 +114,6 @@ class ClientController extends AbstractController
                 $client = $client->findFirst($client->id);
                 return $this->output(200, $client);
             } else {
-                // @todo log
                 throw new ApiException(sprintf("An error occured on client update: %s", json_encode($body)));
             }
         } catch (DuplicateModelException $e) {
@@ -131,7 +130,7 @@ class ClientController extends AbstractController
      *
      * @param int $id            
      */
-    public function delete(int $id)
+    public function delete(int $id): Response
     {
         // input parameters validation
         $this->validateData('int', $id, [
@@ -141,7 +140,7 @@ class ClientController extends AbstractController
         $client = ClientModel::findFirst($id);
         
         if (empty($client)) {
-            throw new ApiException("Not found",404);
+            throw new ApiException("Not found", 404);
         } else {
             $client->delete();
             return $this->output(204);
@@ -150,7 +149,7 @@ class ClientController extends AbstractController
 
     /**
      * Validate input
-     * 
+     *
      * @param array $body            
      */
     protected function validateMandatoryInput(array $body)
@@ -189,11 +188,11 @@ class ClientController extends AbstractController
             'includedMaximum' => false
         ]);
     }
-    
+
     /**
      * Auto set reference
      *
-     * @param \Phalcon\Mvc\Model $client
+     * @param \Phalcon\Mvc\Model $client            
      */
     protected function setReference(\Phalcon\Mvc\Model $client)
     {

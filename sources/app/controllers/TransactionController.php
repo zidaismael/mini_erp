@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use RelTransactionProductModel;
 use Exception\ApiException;
 
 class TransactionController extends AbstractController
@@ -13,12 +14,16 @@ class TransactionController extends AbstractController
      */
     public function get(int $id)
     {
-        $result = TransactionModel::findFirst($id);
+        $transactionModel = TransactionModel::findFirst($id);
     
-        if(empty($result)){
+        if(empty($transactionModel)){
             throw new ApiException("Not found",404);
         }else{
-            return $this->output(200, $result->toArray());
+            $products=$this->getRelatedProducts($transactionModel);
+            $transaction=$transactionModel->toArray();
+            $transaction['products']=$products;
+            
+            return $this->output(200, $transaction);
         }
     }
     
@@ -105,6 +110,38 @@ class TransactionController extends AbstractController
         }else{
             $result=$client->getRelated('transaction');
             return $this->output(200, $result->toArray());
+        }
+    }
+    
+    /**
+     * Get related products
+     * @param TransactionModel $transactionModel
+     * @return array
+     */
+    protected function getRelatedProducts(TransactionModel $transactionModel): array{
+        $relProductList=$transactionModel->getRelated('RelTransactionProduct');
+        $relation=$relProductList->toArray();
+        
+        if(empty($relProductList)){
+            return [];
+        }else{
+            $productIds=array_map(function($entry){return $entry['product_id'];}, $relation);
+            $productModelList = ProductModel::find(['conditions' => "id IN ({id:array})", 'bind' => ['id'=> $productIds]]);
+
+            //replace price, tax, quantity and unset stock
+            $products=$productModelList->toArray();
+            foreach($products as &$product){
+                $transactionInfo=array_filter($relation, function($entry) use (&$product){return $entry['product_id']===$product['id'];});
+                if(!empty($transactionInfo)){
+                    $transactionInfo=array_pop($transactionInfo);
+                    $product['quantity']=$transactionInfo['product_quantity'];
+                    $product['price']=$transactionInfo['product_price'];
+                    $product['tax']=$transactionInfo['product_tax'];
+                    unset($product['stock']);
+                }
+            }
+            
+            return $products;
         }
     }
 }

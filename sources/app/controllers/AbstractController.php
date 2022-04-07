@@ -17,12 +17,11 @@ class AbstractController extends \Phalcon\Mvc\Controller
     /**
      * Get Json body request
      *
-     * @param array $mandatoryKeys
-     *            Mandatory key in json body request
+     * @param array $mandatoryKeys Mandatory key in json body request
      * @throws \Exception
      * @return array
      */
-    protected function getBody(array $mandatoryKeys = [])
+    protected function getBody(array $mandatoryKeys = []): array
     {
         $body = json_decode($this->request->getRawBody(), true);
         
@@ -46,16 +45,16 @@ class AbstractController extends \Phalcon\Mvc\Controller
      * Respond to call in JSON
      *
      * @param int $httpCode            
-     * @param mixed $content  
-     * @return \Phalcon\Http\Response     
+     * @param mixed $content            
+     * @return \Phalcon\Http\Response
      */
-    protected function output(int $httpCode = 200, $content=null)
+    protected function output(int $httpCode = 200, $content = null)
     {
         $this->response->setStatusCode($httpCode);
         
-        if(!is_null($content)){
+        if (! is_null($content)) {
             return $this->response->setJsonContent($content);
-        }else{
+        } else {
             return $this->response;
         }
     }
@@ -63,14 +62,14 @@ class AbstractController extends \Phalcon\Mvc\Controller
     /**
      * Validate api entries data with principal Phalcon validator
      *
-     * @see https://docs.phalcon.io/4.0/en/api/phalcon_validation#validation          
+     * @see https://docs.phalcon.io/4.0/en/api/phalcon_validation#validation
      * @param string $expectedType            
      * @param mixed $data            
-     * @param mixed $validatorOptions
-     *            Additionnal option of validator (eg: messages, string max length,...)
-     * @return bool @throw Exception\ApiException
+     * @param mixed $validatorOptions Additionnal option of validator (eg: messages, string max length,...)
+     * @return bool 
+     * @throws Exception\ApiException
      */
-    protected function validateData(string $expectedType, $data, array $validatorOptions)
+    protected function validateData(string $expectedType, $data, array $validatorOptions): bool
     {
         $validator = new Validation();
         $expectedType = strtolower($expectedType);
@@ -95,20 +94,19 @@ class AbstractController extends \Phalcon\Mvc\Controller
                 $validatorClassName = 'Email';
                 break;
             default:
-                //@todo log
                 throw new CoreException(sprintf("Unknown validation type %s in %s", $expectedType, __METHOD__));
                 break;
         }
-
-        $className="Phalcon\Validation\Validator\\$validatorClassName";
-        $validator->add("data",new $className($validatorOptions));
         
-        $entity=new \stdClass();
-        $entity->data=$data;
+        $className = "Phalcon\Validation\Validator\\$validatorClassName";
+        $validator->add("data", new $className($validatorOptions));
         
-        $messageObject=$validator->validate($entity);
+        $entity = new \stdClass();
+        $entity->data = $data;
         
-        if (count($messageObject)>0) {
+        $messageObject = $validator->validate($entity);
+        
+        if (count($messageObject) > 0) {
             throw new ApiException($messageObject[0], 400);
         } else {
             return true;
