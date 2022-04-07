@@ -14,7 +14,10 @@ define('APP_PATH', BASE_PATH . '/app');
 
 try {
     
-    require_once BASE_PATH.'/../vendor/autoload.php';
+    $composerAutoloadFilePath=BASE_PATH.'/../vendor/autoload.php';
+    if(file_exists($composerAutoloadFilePath)){
+        require_once $composerAutoloadFilePath;
+    }
 
     $container = new FactoryDefault();
     $app = new Micro($container);
