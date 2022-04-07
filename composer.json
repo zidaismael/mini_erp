@@ -9,10 +9,12 @@
     "phpunit/phpunit": "9.*"
   },
   "type" : "application",
-  "scripts" : { },
   "config" : { },
   "authors" : [ {
     "name" : "Ismael ZIDA",
     "email" : "zidaismael@gmail.com"
-  } ]
+  } ],
+  "scripts": {
+  	"test": "./vendor/phpunit/phpunit/phpunit --bootstrap=\"./tests/bootstrap.php\" -c tests/phpunit.xml"
+  }
 }
