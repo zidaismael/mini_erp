@@ -39,7 +39,7 @@ CREATE TABLE `client` (
   `country` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `reference_UNIQUE` (`reference`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -58,7 +58,7 @@ CREATE TABLE `company` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `reference_UNIQUE` (`reference`),
   UNIQUE KEY `name_country_UNIQUE` (`name`,`country`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -82,7 +82,7 @@ CREATE TABLE `employee` (
   UNIQUE KEY `lastrname_firstname_contract_UNIQUE` (`lastname`,`firstname`,`contract_date`,`company_id`),
   KEY `fk_company_employee_idx` (`company_id`),
   CONSTRAINT `fk_company_employee` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,7 +112,7 @@ CREATE TABLE `product` (
   CONSTRAINT `fk_company_product` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_external_internal_reference` FOREIGN KEY (`external_reference`) REFERENCES `product` (`reference`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `fk_provider_product` FOREIGN KEY (`provider_id`) REFERENCES `provider` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +131,7 @@ CREATE TABLE `provider` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `immatriculation_UNIQUE` (`reference`),
   UNIQUE KEY `name_country_UNIQUE` (`name`,`country`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -185,13 +185,14 @@ CREATE TABLE `transaction` (
   `type` enum('supply','sell') NOT NULL,
   `employee_id` int(10) unsigned DEFAULT NULL,
   `client_id` int(10) unsigned DEFAULT NULL,
+  `amount` float NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `reference_UNIQUE` (`reference`),
   KEY `fk_employee_transaction_idx` (`employee_id`),
   KEY `fk_client_transaction_idx` (`client_id`),
   CONSTRAINT `fk_client_transaction` FOREIGN KEY (`client_id`) REFERENCES `client` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_employee_transaction` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -247,4 +248,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-06 23:38:22
+-- Dump completed on 2022-04-07 11:39:04
