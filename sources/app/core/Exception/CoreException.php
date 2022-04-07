@@ -9,7 +9,14 @@ class CoreException extends \Exception
         500
     ];
     
-    public function __construct ($message = null, $code = 500, $previous = null) {
+    /**
+     * Constructor
+     * @param string $message
+     * @param mixed $code (default 500)
+     * @param mixed $previous
+     * @throws \Exception
+     */
+    public function __construct (string $message = null, $code = 500, $previous = null) {
         parent::__construct($message,$code,$previous);
     
         if(!in_array($code,$this->authorizedCodes)){

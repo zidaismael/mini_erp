@@ -9,9 +9,9 @@ class DuplicateModelException extends \Exception
     protected string $subject = '';
 
     /**
-     *
+     * Constructor
      * @param string $message            
-     * @param mixed $code            
+     * @param int $code            
      * @param mixed $previous            
      */
     public function __construct(string $message = '', int $code = 0, $previous = null)
@@ -29,8 +29,7 @@ class DuplicateModelException extends \Exception
     }
 
     /**
-     * subject of duplication
-     *
+     * Subject of duplication
      * @return string
      */
     public function getSubject(): string

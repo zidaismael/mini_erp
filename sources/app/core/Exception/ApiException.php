@@ -14,7 +14,14 @@ class ApiException extends \Exception
         503
     ];
 
-    public function __construct ($message = null, $code = null, $previous = null) {
+    /**
+     * Constuctor
+     * @param string|null $message
+     * @param mixed $code
+     * @param mixed $previous
+     * @throws CoreException
+     */
+    public function __construct (string $message = null, $code = null, $previous = null) {
         parent::__construct($message,$code,$previous);
         
         if(!in_array($code, static::$authorizedCodes)){
