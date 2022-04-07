@@ -3,7 +3,10 @@
   "description" : "Mini ERP PHP",
   "version" : "1.0",
   "require" : {
-    "phalcon/devtools" : "4.*"
+  },
+  "require-dev": {
+    "apigen/apigen": "4.1.2",
+    "phpunit/phpunit": "9.*"
   },
   "type" : "application",
   "scripts" : { },
