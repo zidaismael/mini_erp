@@ -54,7 +54,7 @@ class ClientModel extends AbstractModel
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Client[]|Client|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return ClientModel[]|ClientModel|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null): \Phalcon\Mvc\Model\ResultsetInterface
     {
@@ -65,7 +65,7 @@ class ClientModel extends AbstractModel
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Client|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     * @return ClientModel|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
      */
     public static function findFirst($parameters = null): ?\Phalcon\Mvc\ModelInterface
     {
@@ -73,9 +73,9 @@ class ClientModel extends AbstractModel
     }
     
     /**
-     * Get product by reference
+     * Get client by reference
      * @param string $reference
-     * @return Product|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     * @return ClientModel|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
      */
     public static function getByReference(string $reference): ?\Phalcon\Mvc\ModelInterface{
         return parent::findFirst([

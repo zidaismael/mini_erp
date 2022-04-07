@@ -76,7 +76,7 @@ class ProductModel extends AbstractModel
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Product[]|Product|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return ProductModel[]|ProductModel|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null): \Phalcon\Mvc\Model\ResultsetInterface
     {
@@ -87,7 +87,7 @@ class ProductModel extends AbstractModel
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Product|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     * @return ProductModel|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
      */
     public static function findFirst($parameters = null): ?\Phalcon\Mvc\ModelInterface
     {
@@ -98,7 +98,7 @@ class ProductModel extends AbstractModel
      * Get product by reference
      * @param string $reference
      * @param bool $useExternal use external reference column (default false)
-     * @return Product|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     * @return ProductModel|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
      */
     public static function getByReference(string $reference, bool $useExternal=false): ?\Phalcon\Mvc\ModelInterface{
         $columnName = $useExternal===true ? 'external_reference' : 'reference';
@@ -116,7 +116,7 @@ class ProductModel extends AbstractModel
      * @param array $searchValues
      * @param bool $useExternal use external reference column (default false)
      * @throws CoreException
-     * @return Products|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|NULL
+     * @return ProductModel|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|NULL
      */
     public static function getProductsByReferences(string $ownerType, int $ownerId, array $searchValues, bool $useExternal=false){
     

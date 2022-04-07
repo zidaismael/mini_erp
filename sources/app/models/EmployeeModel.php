@@ -67,7 +67,7 @@ class EmployeeModel extends AbstractModel
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Employee[]|Employee|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return EmployeeModel[]|EmployeeModel|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null): \Phalcon\Mvc\Model\ResultsetInterface
     {
@@ -78,7 +78,7 @@ class EmployeeModel extends AbstractModel
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Employee|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     * @return EmployeeModel|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
      */
     public static function findFirst($parameters = null): ?\Phalcon\Mvc\ModelInterface
     {
@@ -86,9 +86,9 @@ class EmployeeModel extends AbstractModel
     }
 
     /**
-     * Get product by reference
+     * Get employee by reference
      * @param string $reference
-     * @return Product|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     * @return EmployeeModel|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
      */
     public static function getByReference(string $reference): ?\Phalcon\Mvc\ModelInterface{
         return parent::findFirst([

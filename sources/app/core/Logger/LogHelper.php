@@ -14,7 +14,7 @@ final class LogHelper
     
     protected static Logger $instance;
     
-    private static function getLogger(){
+    private static function getLogger(): \Phalcon\Logger{
         if(empty(static::$logPath)){
             throw new CoreException(sprintf("You have to specify log path before use it %s",__METHOD__));
         }

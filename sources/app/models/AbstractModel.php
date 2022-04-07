@@ -10,10 +10,13 @@ class AbstractModel extends \Phalcon\Mvc\Model
 {
     
     /**
-     * Assign with auto field filtering
+     * Assign data to Model by filering bad entries
+     * @param array $data
+     * @param mixed $whiteList (default null)
+     * @param mixed $dataColumnMap (default null)
      * @return array
      */
-    public function assign(array $data, $whiteList = NULL, $dataColumnMap = NULL): ModelInterface{
+    public function assign(array $data, $whiteList = null, $dataColumnMap = null): ModelInterface{
         $model=new \ReflectionClass(static::class);
         $properties=$model->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED | ReflectionProperty::IS_PRIVATE );
         
@@ -59,6 +62,9 @@ class AbstractModel extends \Phalcon\Mvc\Model
         }
     }
     
+    /**
+     * Get database transaction
+     */
     public function getTransaction(){
         $manager=new Manager();
         return $manager->get();
