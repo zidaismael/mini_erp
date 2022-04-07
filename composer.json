@@ -1,22 +1,15 @@
 {
-    "name": "mini_erp/erp",
-    "version": "1.0",
-    "description": "Mini ERP PHP",
-    "type": "application",
-    "authors": [
-        {
-            "name": "Ismael ZIDA",
-            "email": "zidaismael@gmail.com"
-        }
-    ],
-    "config": {
-    },
-    "require": {
-        "phalcon/devtools": "4.*",
-    	"monolog/monolog": "2.*",
-        "ext-mbstring" : "*",
-        "ext-json" : "*"
-    },
-    "scripts": {
-    }
+  "name" : "mini_erp/erp",
+  "description" : "Mini ERP PHP",
+  "version" : "1.0",
+  "require" : {
+    "phalcon/devtools" : "4.*"
+  },
+  "type" : "application",
+  "scripts" : { },
+  "config" : { },
+  "authors" : [ {
+    "name" : "Ismael ZIDA",
+    "email" : "zidaismael@gmail.com"
+  } ]
 }

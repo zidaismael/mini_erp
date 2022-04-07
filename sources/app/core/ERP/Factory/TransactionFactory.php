@@ -3,13 +3,9 @@ declare(strict_types = 1);
 
 namespace ERP\Factory;
 
-use \ERP\ERPInterface\BuyerInterface;
-use \ERP\ERPInterface\SellerInterface;
 use \TransactionModel;
 use \ERP\Transaction;
-use \ERP\Employee;
 use \ERP\Product;
-use \Exception\CoreException;
 
 class TransactionFactory
 {

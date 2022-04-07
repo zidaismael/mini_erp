@@ -180,7 +180,10 @@ class Company implements BuyerInterface, SellerInterface
     }
     
     /**
-     * Populate bought product list
+     * Add product to buy list
+     * @param SellerInterface $provider
+     * @param BuyerInterface $company
+     * @param array $orderedProduct
      */
     public function addBoughtProduct(SellerInterface $provider, BuyerInterface $company, array $orderedProduct){
 
@@ -216,7 +219,8 @@ class Company implements BuyerInterface, SellerInterface
     
 /**
      * Has provider enought stock
-     * @param float $total
+     * @param string $productReference
+     * @param int $requiredQuantity
      * @return bool
      */
     public function hasEnoughtStock(string $productReference, int $requiredQuantity): bool{
@@ -235,7 +239,7 @@ class Company implements BuyerInterface, SellerInterface
     }
 
     /**
-     * Has company got product yet
+     * Has company got referenced product yet
      * @param string $productReference
      * @param bool $useExternalReference (default false)
      * @return bool
@@ -248,14 +252,14 @@ class Company implements BuyerInterface, SellerInterface
      * Has company got products
      * @return bool
      */
-    public function hasProducts():bool{
+    public function hasProducts(): bool{
         return !empty($this->availableProductList);
     }
     
     /**
      * Set product in list
-     * @param string $productReference
-     * @throw \Exception\CoreException
+     * @param \ERP\Product $product
+     * @throws \Exception\CoreException
      */
     public function setProduct(Product $product){
         $productReference=$product->getReference();
@@ -264,13 +268,14 @@ class Company implements BuyerInterface, SellerInterface
         }
     
         $this->availableProductList[$productReference]=$product;
+        return $this;
     }
     
     /**
      * Get product
      * @param string $productReference
      * @param bool $useExternalReference (default false)
-     * @return bool
+     * @return \ERP\Product|null
      */
     public function getProduct(string $productReference, bool $useExternalReference = false): ?Product{
         if(!$useExternalReference){

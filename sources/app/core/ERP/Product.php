@@ -46,7 +46,9 @@ class Product
     /**
      * Constructor
      * @param string $reference
-     * @return \ERP\Product
+     * @param string $name
+     * @param float|null $price
+     * @param float|null $tax
      */
     public function __construct($reference, string $name, $price, $tax){
         $this->name=$name;
@@ -72,6 +74,7 @@ class Product
     
     /**
      * Generate product reference
+     * @return string 
      */
     public function generateReference(): string{
         return sprintf("PRD_%d", random_int(0, 999999999));

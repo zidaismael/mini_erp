@@ -8,7 +8,6 @@ use \ERP\ERPInterface\SellerInterface;
 use \ERP\Employee;
 use \ERP\Company;
 use \ERP\Client;
-use \Exception\CoreException;
 
 class Transaction
 {
@@ -92,12 +91,16 @@ class Transaction
         return $amount;
     }
     
+    /**
+     * Get transaction primary information
+     */
     protected function getInfo(): array{
         return [
             'reference' => $this->reference,
             'type' => $this->type,
             'date' => $this->date,
-            'products' => $this->productList
+            'products' => $this->productList,
+            'amount'   => $this->amount
         ];
     }
     

@@ -40,14 +40,25 @@ class Client implements BuyerInterface
      * Set transaction collection
      * @param array $transactionList
      */
-    public function setTransactionList(array $transactionList){
+    public function setTransactionList(array $transactionList): array{
         $this->transactionList=$transactionList;
     }
     
+    /**
+     * Buy products
+     * @param SellerInterface $seller
+     * @param Employee $employee
+     * @param array $orderedProducts
+     * @return \ERP\Transaction|null
+     */
     public function buyProducts(SellerInterface $seller, Employee $employee, array $orderedProducts): ?Transaction{
         return null;
     }
     
+    /**
+     * Tell if can buy product
+     * @param float $total
+     */
     public function hasEnougthMoney(float $total): bool{
         return true;
     }
@@ -63,30 +74,12 @@ class Client implements BuyerInterface
         return !empty($productList) ? array_pop($productList) : null;
     }
     
-    public function getBoughtProductList() : array{
-        return $this->boughtProductList;
-    }
     
     /**
-     * Populate bought product list
-     * @param \ERP\Product 
-     *//*
-    public function addBoughtProduct(Product $product, array $orderedProduct){
-        //constuct order product according to company product 
-        $boughtProduct= clone $product;
-
-        //update with order values
-        $boughtProduct->setExternalReference($orderedProduct['reference'])
-            ->setOrderQuantity($orderedProduct['quantity']);
-        
-        //in this case stock info isn't appropriate
-        $boughtProduct->setStock(null);
-        
-        $this->boughtProductList[]=$boughtProduct;
-    }*/
-    
-    /**
-     * Populate bought product list
+     * Add product to buy list
+     * @param SellerInterface $company
+     * @param BuyerInterface $client
+     * @param array $orderedProduct
      */
     public function addBoughtProduct(SellerInterface $company, BuyerInterface $client, array $orderedProduct){
     
@@ -103,6 +96,10 @@ class Client implements BuyerInterface
         ->setStock(null);
     
         $this->boughtProductList[]=$boughtProduct;
+    }
+    
+    public function getBoughtProductList() : array{
+        return $this->boughtProductList;
     }
 }
 

@@ -4,7 +4,6 @@ declare(strict_types = 1);
 namespace ERP;
 
 use \ERP\ERPInterface\SellerInterface;
-use \ERP\ERPInterface\BuyerInterface;
 use \ERP\Transaction;
 use \ERP\Product;
 use \Exception\CoreException;
@@ -45,7 +44,8 @@ class Provider implements SellerInterface
     
     /**
      * Has provider enought stock
-     * @param float $total
+     * @param string $productReference
+     * @param int $requiredQuantity
      * @return bool
      */
     public function hasEnoughtStock(string $productReference, int $requiredQuantity): bool{
@@ -65,7 +65,7 @@ class Provider implements SellerInterface
     
     /**
      * Set product in list
-     * @param string $productReference
+     * @param Product $product
      * @throw \Exception\CoreException
      */
     public function setProduct(Product $product){
@@ -76,7 +76,7 @@ class Provider implements SellerInterface
         
         $this->availableProductList[$productReference]=$product;
     }
-    
+
     public function setAvailableProductList(array $products){
         foreach($products as $product){
             $this->availableProductList[$product->getReference()]=$product;
@@ -92,14 +92,9 @@ class Provider implements SellerInterface
         return $this->availableProductList[$reference];
     }
     
-    /**
-     * Set transaction collection
-     * @param array $transactionList
-     */
     public function setTransactionList(array $transactionList){
         $this->transactionList=$transactionList;
     }
-    
     
 }
 
