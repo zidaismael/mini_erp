@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 use Phalcon\Mvc\ModelInterface;
 use Phalcon\Mvc\Model\Transaction\Manager;
@@ -75,9 +76,9 @@ class AbstractModel extends \Phalcon\Mvc\Model
             $errorMessage=$e->getMessage();
         
             if(DuplicateModelException::isDuplicateError($errorMessage)){
-                throw new DuplicateModelException($errorMessage, $e->getCode());
+                throw new DuplicateModelException($errorMessage, (int) $e->getCode());
             }else if(ForeignKeyModelException::isIntegrityError($errorMessage)){
-                throw new ForeignKeyModelException($errorMessage, $e->getCode());
+                throw new ForeignKeyModelException($errorMessage,(int) $e->getCode());
             }
         }
         

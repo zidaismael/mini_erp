@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 namespace Exception;
 
 class DuplicateModelException extends \Exception
@@ -12,7 +14,7 @@ class DuplicateModelException extends \Exception
      * @param mixed $code            
      * @param mixed $previous            
      */
-    public function __construct(string $message = null, $code = null, $previous = null)
+    public function __construct(string $message = '', int $code = 0, $previous = null)
     {
         parent::__construct($message, $code, $previous);
         
