@@ -2,10 +2,11 @@
 declare(strict_types=1);
 
 use ERP\User;
+use Phalcon\Http\Response;
 
 class LoginController extends AbstractController
 {
-    public function post()
+    public function post(): Response
     {
         /**
          * @todo make authent with login and passed password

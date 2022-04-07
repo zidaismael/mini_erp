@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use Exception\ApiException;
+use Phalcon\Http\Response;
 
 class CompanyEmployeeController extends AbstractController
 {
@@ -11,7 +12,7 @@ class CompanyEmployeeController extends AbstractController
      * @param int $id
      * @return \Phalcon\Http\Response
      */
-    public function get(int $id)
+    public function get(int $id): Response
     {
         $company = CompanyModel::findFirst($id);
         

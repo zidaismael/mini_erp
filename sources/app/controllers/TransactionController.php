@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use RelTransactionProductModel;
 use Exception\ApiException;
+use Phalcon\Http\Response;
 
 class TransactionController extends AbstractController
 {
@@ -12,7 +13,7 @@ class TransactionController extends AbstractController
      * @param int $id
      * @return \Phalcon\Http\Response
      */
-    public function get(int $id)
+    public function get(int $id): Response
     {
         $transactionModel = TransactionModel::findFirst($id);
     
@@ -34,7 +35,7 @@ class TransactionController extends AbstractController
      * @param int $id
      * @return \Phalcon\Http\Response
      */
-    public function getByEmployee(int $id)
+    public function getByEmployee(int $id): Response
     {
         $employee = EmployeeModel::findFirst($id);
     
@@ -52,7 +53,7 @@ class TransactionController extends AbstractController
      * @param int $id
      * @return \Phalcon\Http\Response
      */
-    public function getByCompany(int $id)
+    public function getByCompany(int $id): Response
     {
         $company = CompanyModel::findFirst($id);
     
@@ -83,7 +84,7 @@ class TransactionController extends AbstractController
      * @param int $id
      * @return \Phalcon\Http\Response
      */
-    public function getByProvider(int $id)
+    public function getByProvider(int $id): Response
     {
         $provider = ProviderModel::findFirst($id);
     
@@ -101,7 +102,7 @@ class TransactionController extends AbstractController
      * @param int $id
      * @return \Phalcon\Http\Response
      */
-    public function getByClient(int $id)
+    public function getByClient(int $id): Response
     {
         $client = ClientModel::findFirst($id);
     

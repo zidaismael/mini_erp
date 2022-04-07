@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use Phalcon\Http\Response;
+
 class ProviderProductController extends AbstractController
 {
     /**
@@ -9,7 +11,7 @@ class ProviderProductController extends AbstractController
      * @param int $id
      * @return \Phalcon\Http\Response
      */
-    public function get(int $id)
+    public function get(int $id): Response
     {
         $provider = ProviderModel::findFirst($id);
     

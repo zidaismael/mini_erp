@@ -12,6 +12,7 @@ use Exception\CoreException;
 use Exception\TransactionException;
 use TransactionModel;
 use EmployeeModel;
+use Phalcon\Http\Response;
 
 class CompanyProductController extends AbstractController
 {
@@ -21,7 +22,7 @@ class CompanyProductController extends AbstractController
      * @param int $id
      * @return \Phalcon\Http\Response
      */
-    public function get(int $id)
+    public function get(int $id): Response
     {
         $company=$this->getCompany($id);
         $result=$company->getRelated('product');
@@ -29,7 +30,7 @@ class CompanyProductController extends AbstractController
     }
     
     
-    public function buyProducts(int $id)
+    public function buyProducts(int $id): Response
     {
         //checks
         $body = $this->getBody([
@@ -71,7 +72,7 @@ class CompanyProductController extends AbstractController
     }
     
     
-    public function sellProducts(int $id)
+    public function sellProducts(int $id): Response
     {
         //checks
         $body = $this->getBody([

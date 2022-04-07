@@ -5,6 +5,7 @@ use Logger\LogHelper;
 use Exception\ApiException;
 use Exception\DuplicateModelException;
 use Exception\ForeignKeyModelException;
+use Phalcon\Http\Response;
 
 class ProductController extends AbstractController
 {
@@ -16,7 +17,7 @@ class ProductController extends AbstractController
      *            default null, if null => list else get one
      * @return \Phalcon\Http\Response
      */
-    public function get($id = null)
+    public function get($id = null): Response
     {
         if (is_null($id)) { // no id passed => list
             $result = ProductModel::find();
@@ -46,7 +47,7 @@ class ProductController extends AbstractController
      *
      * @return \Phalcon\Http\Response
      */
-    public function post()
+    public function post(): Response
     {
         // get body and check mandatory input parameters validation
         $body = $this->getBody([
@@ -91,7 +92,7 @@ class ProductController extends AbstractController
      *
      * @param int $id            
      */
-    public function put(int $id)
+    public function put(int $id): Response
     {
         
         // get body and check mandatory input parameters validation
@@ -143,7 +144,7 @@ class ProductController extends AbstractController
      *
      * @param int $id            
      */
-    public function delete(int $id)
+    public function delete(int $id): Response
     {
         // input parameters validation
         $this->validateData('int', $id, [
@@ -203,6 +204,7 @@ class ProductController extends AbstractController
             ]);
         }
     }
+    
 
     /**
      * Auto set reference
