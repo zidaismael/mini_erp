@@ -96,5 +96,10 @@ class Provider implements SellerInterface
         $this->transactionList=$transactionList;
     }
     
+    public function setReference(string $reference){
+        $this->reference=$reference;
+        return $this;
+    }
+    
 }
 

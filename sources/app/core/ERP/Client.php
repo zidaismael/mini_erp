@@ -8,6 +8,7 @@ use \ERP\ERPInterface\SellerInterface;
 use \ERP\Factory\ProductFactory;
 use \ERP\Transaction;
 use \ERP\Product;
+use Exception\CoreException;
 
 class Client implements BuyerInterface
 {
@@ -27,21 +28,6 @@ class Client implements BuyerInterface
      */
     public function __construct(string $reference){
         $this->reference=$reference;
-    }
-    
-    /**
-     * @return string 
-     */
-    public function getReference(){
-        return $this->reference;
-    }
-    
-    /**
-     * Set transaction collection
-     * @param array $transactionList
-     */
-    public function setTransactionList(array $transactionList): array{
-        $this->transactionList=$transactionList;
     }
     
     /**
@@ -66,11 +52,10 @@ class Client implements BuyerInterface
     /**
      * Get product
      * @param string $productReference
-     * @param bool $useExternalReference (default false)
      * @return bool
      */
     public function getProduct(string $productReference): ?Product{
-        $productList=array_filter($this->boughtProductList,function($entry) use ($productReference){ return $entry->getReference() == $productReference; });
+        $productList=array_filter($this->boughtProductList,function($entry) use ($productReference){ return $entry->getExternalReference() == $productReference; });
         return !empty($productList) ? array_pop($productList) : null;
     }
     
@@ -85,6 +70,10 @@ class Client implements BuyerInterface
     
         //constuct order product
         $companyProduct=$company->getProduct($orderedProduct['reference']);
+        if(is_null($companyProduct)){
+            throw new CoreException(sprintf("Can't find company product for %s", $orderedProduct['reference']));
+        }
+        
         $boughtProduct=ProductFactory::build(['reference'=> null, 'external_reference' => $orderedProduct['reference'], 'name' => $companyProduct->getName(), 'quantity' => $orderedProduct['quantity']]);
     
         //update with order values
@@ -100,6 +89,27 @@ class Client implements BuyerInterface
     
     public function getBoughtProductList() : array{
         return $this->boughtProductList;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getReference(){
+        return $this->reference;
+    }
+    
+    public function setReference(string $reference){
+        $this->reference=$reference;
+        return $this;
+    }
+    
+    /**
+     * Set transaction collection
+     * @param array $transactionList
+     */
+    public function setTransactionList(array $transactionList): array{
+        $this->transactionList=$transactionList;
+        return $this;
     }
 }
 

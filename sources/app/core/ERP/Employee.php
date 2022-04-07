@@ -43,5 +43,10 @@ class Employee
     public function getReference(): string{
         return $this->reference;
     }
+    
+    public function setReference(string $reference){
+        $this->reference=$reference;
+        return $this;
+    }
 }
 

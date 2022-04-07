@@ -279,6 +279,9 @@ class Company implements BuyerInterface, SellerInterface
      */
     public function getProduct(string $productReference, bool $useExternalReference = false): ?Product{
         if(!$useExternalReference){
+            if(!array_key_exists($productReference,$this->availableProductList)){
+                return null;
+            }
             return $this->availableProductList[$productReference];
         }else{
             $productList=array_filter($this->availableProductList,function($entry) use ($productReference){ return $entry->getExternalReference() == $productReference; });

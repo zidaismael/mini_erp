@@ -105,6 +105,11 @@ class Product
         return $this;
     }
     
+    public function setReference(string $reference){
+        $this->reference=$reference;
+        return $this;
+    }
+    
     public function getName(): string{
         return $this->name;
     }
