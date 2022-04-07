@@ -50,21 +50,9 @@ class TransactionModel extends AbstractModel
 
     /**
      *
-     * @var integer
-     */
-    public $product_quantity;
-
-    /**
-     *
      * @var double
      */
-    public $product_price;
-
-    /**
-     *
-     * @var double
-     */
-    public $product_tax;
+    public $amount;
     
     /**
      * 
@@ -79,7 +67,7 @@ class TransactionModel extends AbstractModel
     {
         $this->setSchema("mini_erp");
         $this->setSource("transaction");
-        $this->hasMany('id', 'RelTransactionProduct', 'transaction_id', ['alias' => 'RelTransactionProduct']);
+        $this->hasMany('id', 'RelTransactionProductModel', 'transaction_id', ['alias' => 'RelTransactionProduct']);
         $this->belongsTo('client_id', 'ClientModel', 'id', ['alias' => 'Client']);
         $this->belongsTo('employee_id', 'EmployeeModel', 'id', ['alias' => 'Employee']);
     }
@@ -132,6 +120,7 @@ class TransactionModel extends AbstractModel
             $this->date=$transaction->getDate()->format('Y-m-d H:i:s');
             $this->type=$transaction->getType();
             $this->reference=$transaction->getReference();
+            $this->amount=$transaction->getAmount();
             
             $employeeModel=EmployeeModel::getByReference($transaction->getResponsible()->getReference());
             $this->employee_id=$employeeModel->id;
@@ -183,7 +172,7 @@ class TransactionModel extends AbstractModel
             //create transaction products relations
             $productList=$transaction->getProductList();
             foreach($productList as $product){
-                $relTransactionProduct=new RelTransactionProduct();
+                $relTransactionProduct=new RelTransactionProductModel();
                 $relTransactionProduct->setTransaction($databaseTransaction);
             
                 $relTransactionProduct->transaction_id=$this->id;
@@ -232,6 +221,7 @@ class TransactionModel extends AbstractModel
             $this->date=$transaction->getDate()->format('Y-m-d H:i:s');
             $this->type=$transaction->getType();
             $this->reference=$transaction->getReference();
+            $this->amount=$transaction->getAmount();
     
             $employeeModel=EmployeeModel::getByReference($transaction->getResponsible()->getReference());
             $this->employee_id=$employeeModel->id;
@@ -263,7 +253,7 @@ class TransactionModel extends AbstractModel
             $productList=$transaction->getProductList();
             
             foreach($productList as $product){
-                $relTransactionProduct=new RelTransactionProduct();
+                $relTransactionProduct=new RelTransactionProductModel();
                 $relTransactionProduct->setTransaction($databaseTransaction);
      
                 $relTransactionProduct->transaction_id=$this->id;
