@@ -63,6 +63,7 @@ class CompanyProductController extends AbstractController
         try{
             //buy products and update database
             $transaction=$company->buyProducts($provider, $employee, $body['products']);
+            $company->record($transaction);
         }catch(TransactionException $e){
             throw new ApiException($e->getMessage(), 403);
         }
@@ -107,6 +108,7 @@ class CompanyProductController extends AbstractController
         try{
             //sell products and update database
             $transaction=$company->sellProducts($client, $employee, $body['products']);
+            $company->record($transaction);
         }catch(TransactionException $e){
             throw new ApiException($e->getMessage(), 403);
         }

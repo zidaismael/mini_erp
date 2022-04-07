@@ -10,7 +10,7 @@ use \ERP\Transaction;
 use \ERP\Provider;
 use \ERP\Product;
 use \ERP\Employee;
-use TransactionModel;
+use \TransactionModel;
 use \Exception\TransactionException;
 use \Exception\CoreException;
 
@@ -103,12 +103,7 @@ class Company implements BuyerInterface, SellerInterface
         //increase money
         $this->balance+=$amount;
         
-        //database records
-        $transaction=new Transaction($employee, $this, $client);
-   
-        $transactionModel=new TransactionModel();
-        $transactionModel->recordSell($transaction);
-        return $transaction;
+        return new Transaction($employee, $this, $client);
     }
         
     /**
@@ -171,12 +166,22 @@ class Company implements BuyerInterface, SellerInterface
         
         //decrease money
         $this->balance-=$amount;
-        
-        //database records
-        $transaction=new Transaction($employee, $provider, $this);
+  
+        return new Transaction($employee, $provider, $this);
+    }
+    
+    /**
+     * Record transaction to database
+     * @param \ERP\Transaction $transaction
+     */
+    public function record(Transaction $transaction){
         $transactionModel=new TransactionModel();
-        $transactionModel->recordSupply($transaction);
-        return $transaction;
+        
+        if($transaction->getType()=='supply'){
+            $transactionModel->recordSupply($transaction);
+        }else if($transaction->getType()=='sell'){
+            $transactionModel->recordSell($transaction);
+        }
     }
     
     /**
@@ -189,6 +194,10 @@ class Company implements BuyerInterface, SellerInterface
 
         //constuct order product
         $product=$company->getProduct($orderedProduct['reference'], true);
+        if(is_null($product)){
+            throw new CoreException(sprintf("Product for company not found %s", $orderedProduct['reference']));
+        }
+        
         $providerProduct=$provider->getProduct($orderedProduct['reference']);
         
         $boughtProduct= clone $product;
@@ -299,6 +308,11 @@ class Company implements BuyerInterface, SellerInterface
         return $this;
     }
     
+    public function setBalance(float $balance){
+        $this->balance=$balance;
+        return $this;
+    }
+    
     public function setAvailableProductList(array $products){
         foreach($products as $product){
             $this->availableProductList[$product->getReference()]=$product;
@@ -317,6 +331,10 @@ class Company implements BuyerInterface, SellerInterface
     
     public function getReference(){
         return $this->reference;
+    }
+    
+    public function getBalance(): float{
+        return $this->balance;
     }
 }
 
