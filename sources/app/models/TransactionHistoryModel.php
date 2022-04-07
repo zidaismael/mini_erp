@@ -1,6 +1,14 @@
 <?php
 declare(strict_types = 1);
 
+/**
+ * Archive transaction manager
+ * @todo must be called to retrieve raw information before :
+ * - a company is deleted
+ * - a client is deleted
+ * - a provider is deleted
+ * - a product is deleted
+ */
 class TransactionHistoryModel extends AbstractModel
 {
 

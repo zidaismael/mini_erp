@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-class RelTransactionProduct extends AbstractModel
+class RelTransactionProductModel extends AbstractModel
 {
 
     /**
@@ -49,7 +49,7 @@ class RelTransactionProduct extends AbstractModel
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return RelTransactionProduct[]|RelTransactionProduct|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return RelTransactionProductModel[]|RelTransactionProduct|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null): \Phalcon\Mvc\Model\ResultsetInterface
     {
@@ -60,7 +60,7 @@ class RelTransactionProduct extends AbstractModel
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return RelTransactionProduct|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
+     * @return RelTransactionProductModel|\Phalcon\Mvc\Model\ResultInterface|\Phalcon\Mvc\ModelInterface|null
      */
     public static function findFirst($parameters = null): ?\Phalcon\Mvc\ModelInterface
     {
