@@ -6,7 +6,7 @@ services:
     container_name : "mini_erp"
     command:  bash -c "sh /data/script/start.sh && tail -f /dev/null"
     ports:
-      - 80:80
+      - 8888:8888
       - 9999:9999
     tty: true
   database:
@@ -20,7 +20,7 @@ services:
     container_name: "mini_erp_phpmyadmin"
     restart: always
     ports:
-      - 8888:80
+      - 7777:80
     environment:
       - PMA_USER=root
       - PMA_PASSWORD=erp

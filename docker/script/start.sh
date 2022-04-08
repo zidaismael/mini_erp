@@ -11,5 +11,8 @@ composer update
 #apache2 start
 service apache2 restart
 
+echo "Wait 10s for database up"
+sleep 10
+
 #init database
 /data/database/database_init.sh
