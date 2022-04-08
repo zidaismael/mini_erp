@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "eacf1128-bf79-4755-aa39-2d0ee55fa440",
+		"_postman_id": "68116ac5-1e54-42ce-b066-88a5b9f34f66",
 		"name": "MINI_ERP",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -27,7 +27,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://192.168.1.39/api/clients",
+							"raw": "http://192.168.1.39:8888/api/clients",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -35,6 +35,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"clients"
@@ -62,7 +63,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://192.168.1.39/api/client/1",
+							"raw": "http://192.168.1.39:8888/api/client/1",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -70,6 +71,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"client",
@@ -107,7 +109,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.39/api/client",
+							"raw": "http://192.168.1.39:8888/api/client",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -115,6 +117,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"client"
@@ -151,7 +154,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.39/api/client/2",
+							"raw": "http://192.168.1.39:8888/api/client/2",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -159,6 +162,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"client",
@@ -196,7 +200,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.39/api/client/1",
+							"raw": "http://192.168.1.39:8888/api/client/1",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -204,6 +208,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"client",
@@ -232,7 +237,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://192.168.1.39/api/client/56/transactions",
+							"raw": "http://192.168.1.39:8888/api/client/56/transactions",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -240,6 +245,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"client",
@@ -274,7 +280,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://192.168.1.39/api/employees",
+							"raw": "http://192.168.1.39:8888/api/employees",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -282,6 +288,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"employees"
@@ -309,7 +316,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://192.168.1.39/api/employee/1",
+							"raw": "http://192.168.1.39:8888/api/employee/1",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -317,6 +324,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"employee",
@@ -354,7 +362,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.39/api/employee",
+							"raw": "http://192.168.1.39:8888/api/employee",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -362,6 +370,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"employee"
@@ -398,7 +407,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.39/api/employee/35",
+							"raw": "http://192.168.1.39:8888/api/employee/35",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -406,6 +415,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"employee",
@@ -443,7 +453,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.39/api/employee/37",
+							"raw": "http://192.168.1.39:8888/api/employee/37",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -451,6 +461,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"employee",
@@ -479,7 +490,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://192.168.1.39/api/employee/38/transactions",
+							"raw": "http://192.168.1.39:8888/api/employee/38/transactions",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -487,6 +498,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"employee",
@@ -521,7 +533,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://192.168.1.39/api/companies",
+							"raw": "http://192.168.1.39:8888/api/companies",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -529,6 +541,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"companies"
@@ -556,7 +569,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://192.168.1.39/api/company/1",
+							"raw": "http://192.168.1.39:8888/api/company/1",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -564,6 +577,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"company",
@@ -601,7 +615,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.39/api/company",
+							"raw": "http://192.168.1.39:8888/api/company",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -609,6 +623,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"company"
@@ -645,7 +660,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.39/api/company/1",
+							"raw": "http://192.168.1.39:8888/api/company/1",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -653,6 +668,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"company",
@@ -690,7 +706,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.39/api/company/9",
+							"raw": "http://192.168.1.39:8888/api/company/9",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -698,6 +714,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"company",
@@ -726,7 +743,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://192.168.1.39/api/company/14/employees",
+							"raw": "http://192.168.1.39:8888/api/company/14/employees",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -734,6 +751,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"company",
@@ -763,7 +781,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://192.168.1.39/api/company/14/products",
+							"raw": "http://192.168.1.39:8888/api/company/14/products",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -771,6 +789,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"company",
@@ -809,7 +828,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.39/api/company/14/buyproducts",
+							"raw": "http://192.168.1.39:8888/api/company/14/buyproducts",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -817,6 +836,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"company",
@@ -855,7 +875,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.39/api/company/14/sellproducts",
+							"raw": "http://192.168.1.39:8888/api/company/14/sellproducts",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -863,6 +883,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"company",
@@ -892,7 +913,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://192.168.1.39/api/company/14/transactions",
+							"raw": "http://192.168.1.39:8888/api/company/14/transactions",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -900,6 +921,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"company",
@@ -934,7 +956,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://192.168.1.39/api/providers",
+							"raw": "http://192.168.1.39:8888/api/providers",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -942,6 +964,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"providers"
@@ -969,7 +992,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://192.168.1.39/api/provider/1",
+							"raw": "http://192.168.1.39:8888/api/provider/1",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -977,6 +1000,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"provider",
@@ -1014,7 +1038,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.39/api/provider",
+							"raw": "http://192.168.1.39:8888/api/provider",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -1022,6 +1046,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"provider"
@@ -1058,7 +1083,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.39/api/provider/1",
+							"raw": "http://192.168.1.39:8888/api/provider/1",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -1066,6 +1091,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"provider",
@@ -1103,7 +1129,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.39/api/provider/4",
+							"raw": "http://192.168.1.39:8888/api/provider/4",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -1111,6 +1137,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"provider",
@@ -1139,7 +1166,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://192.168.1.39/api/provider/1/products",
+							"raw": "http://192.168.1.39:8888/api/provider/1/products",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -1147,6 +1174,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"provider",
@@ -1181,7 +1209,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://192.168.1.39/api/product/22",
+							"raw": "http://192.168.1.39:8888/api/product/22",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -1189,6 +1217,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"product",
@@ -1226,7 +1255,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.39/api/product",
+							"raw": "http://192.168.1.39:8888/api/product",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -1234,6 +1263,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"product"
@@ -1270,7 +1300,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.39/api/product/22",
+							"raw": "http://192.168.1.39:8888/api/product/22",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -1278,6 +1308,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"product",
@@ -1315,7 +1346,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.39/api/product/23",
+							"raw": "http://192.168.1.39:8888/api/product/23",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -1323,6 +1354,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"product",
@@ -1356,7 +1388,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://192.168.1.39/api/transaction/16",
+							"raw": "http://192.168.1.39:8888/api/transaction/16",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -1364,6 +1396,7 @@
 								"1",
 								"39"
 							],
+							"port": "8888",
 							"path": [
 								"api",
 								"transaction",
