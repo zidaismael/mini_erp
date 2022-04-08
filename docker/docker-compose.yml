@@ -1,20 +1,12 @@
 version: "3.3"
 services:
-  php-apache-phalcon:
-    build: 
-      context: .
-    container_name : "mini_erp"
-    command:  bash -c "sh /data/script/start.sh && tail -f /dev/null"
-    ports:
-      - 8888:8888
-      - 9999:9999
-    tty: true
   database:
     image: mariadb:10.6.7
     container_name: "mini_erp_database"
     restart: always
     environment:
       MARIADB_ROOT_PASSWORD: "erp"
+    tty: true
   phpmyadmin:
     image: phpmyadmin
     container_name: "mini_erp_phpmyadmin"
@@ -25,3 +17,11 @@ services:
       - PMA_USER=root
       - PMA_PASSWORD=erp
       - PMA_HOST=mini_erp_database
+  mini_erp:
+    build:
+      context: .
+    container_name : "mini_erp"
+    command:  bash -c "sh /data/script/start.sh && tail -f /dev/null"
+    ports:
+      - 8888:8888
+      - 9999:9999
