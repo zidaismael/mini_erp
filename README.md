@@ -23,7 +23,7 @@ Aussi je précise que je ne connaissais pas le framework Phalcon auparavant (mai
 - Avec l'image docker prête à démarrer
 	```bash 
     docker pull zidaismael/mini_erp:latest
-    docker image tag zidaismael/mini_erp:latest docker_php-apache-phalcon:latest
+    docker image tag zidaismael/mini_erp:latest docker_mini_erp:latest
     ```
 # RUN
 Aller dans [PROJET_ROOT]/docker
