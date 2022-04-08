@@ -5,7 +5,6 @@
   "require" : {
   },
   "require-dev": {
-    "apigen/apigen": "4.1.2",
     "phpunit/phpunit": "9.*"
   },
   "type" : "application",
@@ -15,6 +14,7 @@
     "email" : "zidaismael@gmail.com"
   } ],
   "scripts": {
-  	"test": "./vendor/phpunit/phpunit/phpunit --bootstrap=\"./tests/bootstrap.php\" -c tests/phpunit.xml"
+  	"test": "./vendor/phpunit/phpunit/phpunit --bootstrap=\"./tests/bootstrap.php\" -c tests/phpunit.xml",
+  	"generate-doc": "php ./bin/phpDocumentor.phar -d ./sources/app/core -t ./doc/phpdoc/"
   }
 }

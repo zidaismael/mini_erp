@@ -7,6 +7,7 @@ services:
     command:  bash -c "sh /data/script/start.sh && tail -f /dev/null"
     ports:
       - 80:80
+      - 9999:9999
     volumes:
       - /data/www/mini_erp:/data/www
       - /data/log:/data/log
