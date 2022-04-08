@@ -40,7 +40,14 @@ Afin de tester les routes et règles de l'API, vous pouvez utiliser la collectio
 
 # DOC
 
-La php doc est disponible ici **http://[HOST_IP]:9999**
+La PHP doc est disponible ici **http://[HOST_IP]:9999**
+
+La PHP doc peut être regénérée depuis la racine du projet  en lançant 
+```bash 
+	composer generate-doc
+```
+
+Le reste de la documentation se touve dans [PROJET_ROOT]/doc
 
 # TEST
 
