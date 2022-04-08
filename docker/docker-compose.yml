@@ -8,9 +8,6 @@ services:
     ports:
       - 80:80
       - 9999:9999
-    volumes:
-      - /data/www/mini_erp:/data/www
-      - /data/log:/data/log
     tty: true
   database:
     image: mariadb:10.6.7

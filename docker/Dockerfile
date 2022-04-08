@@ -1,6 +1,7 @@
 FROM ubuntu:focal
 
-RUN mkdir /data
+RUN mkdir -p /data/www
+RUN mkdir -p /data/log
 COPY ./script /data/script
 COPY ./vhosts /data/vhosts
 COPY ./database /data/database
@@ -20,3 +21,6 @@ RUN /data/script/phalcon_install.sh
 
 # configure vhost
 RUN /data/script/apache_configure.sh
+
+# clone project repo
+RUN git clone https://github.com/zidaismael/mini_erp.git /data/www/mini_erp
