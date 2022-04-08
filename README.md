@@ -30,7 +30,7 @@ Aller dans [PROJET_ROOT]/docker
 ```bash 
 	docker-compose up -d
 ```
-/!\ si le conteneur mini_erp ne s'est pas lancer, rejouer la commande sans stopper les autres conteneurs. 
+/!\ si le conteneur mini_erp ne s'est pas lancé, rejouer la commande de lancement sans stopper les autres conteneurs. 
 
 L'api sera disponible sur l'ip de l'hôte à l'adresse: **http://[HOST_IP]:8888/api**  
 
