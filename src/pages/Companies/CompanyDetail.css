@@ -1,0 +1,215 @@
+.company-detail {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.detail-content {
+  display: grid;
+  gap: 24px;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.detail-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 20px;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f8fafc;
+}
+
+.card-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.card-header svg {
+  color: #10b981;
+}
+
+.card-content {
+  padding: 24px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-item label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-item span {
+  font-size: 14px;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-item .reference {
+  font-family: 'Monaco', 'Menlo', monospace;
+  background: #f1f5f9;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #475569;
+  display: inline-block;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  grid-column: 1 / -1;
+}
+
+.stat-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.stat-icon.employees {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.stat-icon.products {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.stat-icon.transactions {
+  background: linear-gradient(135deg, #06b6d4, #0891b2);
+}
+
+.stat-content h4 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.stat-content p {
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.employees-list,
+.products-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.employee-item,
+.product-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.employee-info,
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.employee-name,
+.product-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.employee-ref {
+  font-size: 12px;
+  color: #64748b;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.product-price {
+  font-size: 14px;
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.product-stock {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.show-more {
+  margin-top: 16px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .card-content {
+    padding: 20px;
+  }
+}
